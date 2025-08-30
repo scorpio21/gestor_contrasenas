@@ -1,0 +1,13 @@
+# Ignorar configuración sensible/local
+.env
+
+# Secretos locales
+GESTOR_DB_CONN.txt
+
+# Artefactos de compilación y del IDE
+bin/
+obj/
+.vs/
+*.user
+*.log
+
