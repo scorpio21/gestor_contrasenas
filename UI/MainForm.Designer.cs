@@ -31,6 +31,11 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.TextBox txtBuscar;
         private System.Windows.Forms.Timer autoLockTimer;
         private System.Windows.Forms.Timer clipboardTimer;
+        private System.Windows.Forms.Label lblFortaleza;
+        private System.Windows.Forms.ProgressBar prgFortaleza;
+        private System.Windows.Forms.Label lblReutilizacion;
+        private System.Windows.Forms.Button btnExportarSeguro;
+        private System.Windows.Forms.Button btnImportarSeguro;
 
         protected override void Dispose(bool disposing)
         {
@@ -166,6 +171,7 @@ namespace GestorContrasenas.UI
             this.txtSecreto.PasswordChar = '•';
             this.txtSecreto.Size = new System.Drawing.Size(180, 23);
             this.txtSecreto.TabIndex = 6;
+            this.txtSecreto.TextChanged += new System.EventHandler(this.txtSecreto_TextChanged);
             // 
             // btnVerSecreto
             // 
@@ -273,11 +279,63 @@ namespace GestorContrasenas.UI
             this.btnExportar.UseVisualStyleBackColor = true;
             this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
             // 
+            // lblFortaleza
+            // 
+            this.lblFortaleza = new System.Windows.Forms.Label();
+            this.lblFortaleza.AutoSize = true;
+            this.lblFortaleza.Location = new System.Drawing.Point(432, 389);
+            this.lblFortaleza.Name = "lblFortaleza";
+            this.lblFortaleza.Size = new System.Drawing.Size(105, 15);
+            this.lblFortaleza.TabIndex = 21;
+            this.lblFortaleza.Text = "Fortaleza: (N/A)";
+            // 
+            // prgFortaleza
+            // 
+            this.prgFortaleza = new System.Windows.Forms.ProgressBar();
+            this.prgFortaleza.Location = new System.Drawing.Point(545, 386);
+            this.prgFortaleza.Maximum = 4;
+            this.prgFortaleza.Name = "prgFortaleza";
+            this.prgFortaleza.Size = new System.Drawing.Size(131, 20);
+            this.prgFortaleza.Step = 1;
+            this.prgFortaleza.TabIndex = 22;
+            // 
+            // lblReutilizacion
+            // 
+            this.lblReutilizacion = new System.Windows.Forms.Label();
+            this.lblReutilizacion.AutoSize = true;
+            this.lblReutilizacion.ForeColor = System.Drawing.Color.DarkRed;
+            this.lblReutilizacion.Location = new System.Drawing.Point(12, 472);
+            this.lblReutilizacion.Name = "lblReutilizacion";
+            this.lblReutilizacion.Size = new System.Drawing.Size(0, 15);
+            this.lblReutilizacion.TabIndex = 23;
+            // 
+            // btnImportarSeguro
+            // 
+            this.btnImportarSeguro = new System.Windows.Forms.Button();
+            this.btnImportarSeguro.Location = new System.Drawing.Point(12, 479);
+            this.btnImportarSeguro.Name = "btnImportarSeguro";
+            this.btnImportarSeguro.Size = new System.Drawing.Size(140, 28);
+            this.btnImportarSeguro.TabIndex = 24;
+            this.btnImportarSeguro.Text = "Importar seguro";
+            this.btnImportarSeguro.UseVisualStyleBackColor = true;
+            this.btnImportarSeguro.Click += new System.EventHandler(this.btnImportarSeguro_Click);
+            // 
+            // btnExportarSeguro
+            // 
+            this.btnExportarSeguro = new System.Windows.Forms.Button();
+            this.btnExportarSeguro.Location = new System.Drawing.Point(158, 479);
+            this.btnExportarSeguro.Name = "btnExportarSeguro";
+            this.btnExportarSeguro.Size = new System.Drawing.Size(140, 28);
+            this.btnExportarSeguro.TabIndex = 25;
+            this.btnExportarSeguro.Text = "Exportar seguro";
+            this.btnExportarSeguro.UseVisualStyleBackColor = true;
+            this.btnExportarSeguro.Click += new System.EventHandler(this.btnExportarSeguro_Click);
+            // 
             // lblEstado
             // 
             this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(12, 485);
+            this.lblEstado.Location = new System.Drawing.Point(12, 515);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(0, 15);
             this.lblEstado.TabIndex = 11;
@@ -296,7 +354,12 @@ namespace GestorContrasenas.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 515);
+            this.ClientSize = new System.Drawing.Size(684, 550);
+            this.Controls.Add(this.btnExportarSeguro);
+            this.Controls.Add(this.btnImportarSeguro);
+            this.Controls.Add(this.lblReutilizacion);
+            this.Controls.Add(this.prgFortaleza);
+            this.Controls.Add(this.lblFortaleza);
             this.Controls.Add(this.txtBuscar);
             this.Controls.Add(this.lblBuscar);
             this.Controls.Add(this.btnExportar);

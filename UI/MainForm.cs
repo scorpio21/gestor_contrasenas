@@ -148,6 +148,41 @@ namespace GestorContrasenas.UI
             }
         }
 
+        // Actualiza el medidor de fortaleza y la advertencia de reutilización
+        private void ActualizarFortalezaYReutilizacion()
+        {
+            try
+            {
+                var texto = txtSecreto.Text ?? string.Empty;
+                var (punt, desc) = servicio.CalcularFortaleza(texto);
+                prgFortaleza.Value = Math.Max(0, Math.Min(prgFortaleza.Maximum, punt));
+                lblFortaleza.Text = $"Fortaleza: {desc}";
+
+                // Reutilización (solo si hay algo escrito)
+                if (!string.IsNullOrEmpty(texto))
+                {
+                    bool reutiliza = servicio.ExisteReutilizacionSecreto(texto, claveMaestra);
+                    lblReutilizacion.Text = reutiliza ? "Advertencia: contraseña ya utilizada en otra entrada." : string.Empty;
+                }
+                else
+                {
+                    lblReutilizacion.Text = string.Empty;
+                }
+            }
+            catch
+            {
+                // En caso de error, no bloquear la UI
+                lblFortaleza.Text = "Fortaleza: (N/A)";
+                lblReutilizacion.Text = string.Empty;
+            }
+        }
+
+        private void txtSecreto_TextChanged(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            ActualizarFortalezaYReutilizacion();
+        }
+
         private void btnAbrirSitio_Click(object? sender, EventArgs e)
         {
             ResetAutoLockTimer();
@@ -368,6 +403,54 @@ namespace GestorContrasenas.UI
             catch (Exception ex)
             {
                 MessageBox.Show(this, $"No se pudo exportar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnExportarSeguro_Click(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            using var dlg = new SaveFileDialog
+            {
+                Title = "Exportar respaldo cifrado",
+                Filter = "Backup cifrado (*.gpass)|*.gpass|Todos los archivos (*.*)|*.*",
+                FileName = "respaldo.gpass",
+                OverwritePrompt = true
+            };
+            if (dlg.ShowDialog(this) != DialogResult.OK) return;
+
+            try
+            {
+                var blob = servicio.ExportarJsonCifrado(claveMaestra); // Base64 del JSON cifrado
+                File.WriteAllText(dlg.FileName, blob);
+                MessageBox.Show(this, "Exportación segura completada.", "Exportar seguro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"No se pudo exportar de forma segura: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnImportarSeguro_Click(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            using var dlg = new OpenFileDialog
+            {
+                Title = "Importar respaldo cifrado",
+                Filter = "Backup cifrado (*.gpass)|*.gpass|Todos los archivos (*.*)|*.*",
+                Multiselect = false
+            };
+            if (dlg.ShowDialog(this) != DialogResult.OK) return;
+
+            try
+            {
+                var blob = File.ReadAllText(dlg.FileName);
+                var count = servicio.ImportarJsonCifrado(claveMaestra, blob);
+                CargarListado();
+                MessageBox.Show(this, $"Importación segura completada. Entradas agregadas: {count}.", "Importar seguro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"No se pudo importar de forma segura: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -101,6 +101,22 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 - Se añadió una caja de búsqueda encima del formulario para filtrar en vivo por servicio, usuario o URL de login.
 - Implementación en `UI/MainForm.Designer.cs` (controles `lblBuscar`, `txtBuscar`) y `UI/MainForm.cs` (método `txtBuscar_TextChanged`).
 
+### Medidor de fortaleza y verificación de reutilización (UI/Servicios)
+
+- Al escribir la contraseña en `txtSecreto`, se muestra un medidor de fortaleza y una descripción: Muy débil, Débil, Media, Fuerte, Muy fuerte.
+- Si la contraseña ya existe en otra entrada, se muestra una advertencia de reutilización.
+- Implementación:
+  - Servicio: `Servicios/GestorContrasenasService.cs` (`CalcularFortaleza`, `ExisteReutilizacionSecreto`).
+  - UI: `UI/MainForm.Designer.cs` (controles `lblFortaleza`, `prgFortaleza`, `lblReutilizacion`) y `UI/MainForm.cs` (`txtSecreto_TextChanged`).
+
+### Exportar/Importar seguro (JSON cifrado)
+
+- Exporta todas las entradas a un archivo cifrado (`.gpass`) usando la clave maestra. No se escriben contraseñas en claro en disco.
+- Importa desde un archivo cifrado previamente exportado, validando integridad y agregando entradas.
+- Implementación:
+  - Servicio: `Servicios/GestorContrasenasService.cs` (`ExportarJsonCifrado`, `ImportarJsonCifrado`).
+  - UI: `UI/MainForm.Designer.cs` (botones `btnExportarSeguro`, `btnImportarSeguro`) y `UI/MainForm.cs` (handlers correspondientes).
+
 ## Desarrollo
 
 - Estilo de código: español en nombres y comentarios; soluciones simples.
