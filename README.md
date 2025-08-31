@@ -1,5 +1,7 @@
 # Gestor de Contraseñas
 
+[![.NET Build](https://github.com/scorpio21/gestor_contrasenas/actions/workflows/dotnet.yml/badge.svg)](https://github.com/scorpio21/gestor_contrasenas/actions/workflows/dotnet.yml)
+
 Aplicación de escritorio (Windows Forms, .NET 8) para gestionar contraseñas de forma segura.
 
 ## Requisitos
