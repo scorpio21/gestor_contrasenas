@@ -44,6 +44,7 @@ namespace GestorContrasenas.UI
             this.colServicio = new System.Windows.Forms.ColumnHeader();
             this.colUsuario = new System.Windows.Forms.ColumnHeader();
             this.colSecreto = new System.Windows.Forms.ColumnHeader();
+            this.colVer = new System.Windows.Forms.ColumnHeader();
             this.txtServicio = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
             this.txtSecreto = new System.Windows.Forms.TextBox();
