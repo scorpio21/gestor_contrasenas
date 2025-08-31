@@ -11,10 +11,19 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Git config (EOL)
+        shell: pwsh
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '8.0.x'
+
+      - name: dotnet --info
+        run: dotnet --info
 
       - name: Cache NuGet
         uses: actions/cache@v4
@@ -28,8 +37,7 @@ jobs:
       - name: Restore
         shell: pwsh
         run: |
-          dotnet restore ./gestor_contraseñas.csproj
-          dotnet restore ./test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj
+          dotnet restore
 
       - name: Install dotnet-format
         run: dotnet tool install -g dotnet-format
@@ -44,7 +52,15 @@ jobs:
       - name: Build
         shell: pwsh
         run: |
-          dotnet build -c Release --no-restore ./gestor_contraseñas.csproj
+          dotnet build -c Release --no-restore /bl:build.binlog
+
+      - name: Upload build binlog
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-binlog
+          path: build.binlog
+          if-no-files-found: warn
 
       - name: Test
         shell: pwsh
@@ -55,6 +71,7 @@ jobs:
             --results-directory TestResults
 
       - name: "Publicar artefactos: TRX"
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-results
@@ -62,6 +79,7 @@ jobs:
           if-no-files-found: warn
 
       - name: "Publicar artefactos: Cobertura"
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: coverage-cobertura
