@@ -1,19 +1,26 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using Konscious.Security.Cryptography;
 
 namespace GestorContrasenas.Seguridad
 {
-    // Servicio de cifrado con PBKDF2 + AES-GCM
+    // Servicio de cifrado con AES-GCM y derivación de clave por versión:
+    // v1: PBKDF2-SHA256
+    // v2: Argon2id (recomendada)
     public class CifradoService
     {
         private const int TamSalt = 16; // 128 bits
         private const int TamNonce = 12; // 96 bits recomendado para GCM
-        private const int Iteraciones = 100_000;
+        private const int Iteraciones = 100_000; // PBKDF2 (v1)
         private const int TamClave = 32; // 256 bits
         private const int TamTag = 16; // 128 bits
+        // Parámetros Argon2id (v2) — valores seguros por defecto para desktop
+        private const int ArgonMemKB = 64 * 1024; // 64 MB
+        private const int ArgonIter = 3;
+        private const int ArgonParalelo = 2;
 
-        // Formato de salida (Base64): [1 byte version=1][16 salt][12 nonce][n cipher][16 tag]
+        // Formato de salida (Base64): [1 byte version][16 salt][12 nonce][n cipher][16 tag]
         public string CifrarTexto(string textoPlano, string claveMaestra)
         {
             if (textoPlano == null) throw new ArgumentNullException(nameof(textoPlano));
@@ -21,7 +28,8 @@ namespace GestorContrasenas.Seguridad
 
             var salt = RandomNumberGenerator.GetBytes(TamSalt);
             var nonce = RandomNumberGenerator.GetBytes(TamNonce);
-            var clave = DerivarClave(claveMaestra, salt);
+            // A partir de ahora usamos versión 2 (Argon2id) por defecto
+            var clave = DerivarClaveV2Argon2id(claveMaestra, salt);
 
             var datos = Encoding.UTF8.GetBytes(textoPlano);
             var cifrado = new byte[datos.Length];
@@ -33,7 +41,7 @@ namespace GestorContrasenas.Seguridad
             }
 
             var salida = new byte[1 + TamSalt + TamNonce + cifrado.Length + TamTag];
-            salida[0] = 1; // versión
+            salida[0] = 2; // versión 2 (Argon2id)
             Buffer.BlockCopy(salt, 0, salida, 1, TamSalt);
             Buffer.BlockCopy(nonce, 0, salida, 1 + TamSalt, TamNonce);
             Buffer.BlockCopy(cifrado, 0, salida, 1 + TamSalt + TamNonce, cifrado.Length);
@@ -48,7 +56,8 @@ namespace GestorContrasenas.Seguridad
 
             var blob = Convert.FromBase64String(textoCifradoBase64);
             if (blob.Length < 1 + TamSalt + TamNonce + TamTag) throw new FormatException("Formato de secreto no válido.");
-            if (blob[0] != 1) throw new NotSupportedException("Versión de cifrado no soportada.");
+            var version = blob[0];
+            if (version != 1 && version != 2) throw new NotSupportedException("Versión de cifrado no soportada.");
 
             var salt = new byte[TamSalt];
             var nonce = new byte[TamNonce];
@@ -61,7 +70,9 @@ namespace GestorContrasenas.Seguridad
             Buffer.BlockCopy(blob, 1 + TamSalt + TamNonce, cifrado, 0, totalCifrado);
             Buffer.BlockCopy(blob, 1 + TamSalt + TamNonce + totalCifrado, tag, 0, TamTag);
 
-            var clave = DerivarClave(claveMaestra, salt);
+            byte[] clave = version == 1
+                ? DerivarClaveV1PBKDF2(claveMaestra, salt)
+                : DerivarClaveV2Argon2id(claveMaestra, salt);
             var plano = new byte[totalCifrado];
             using (var aesgcm = new AesGcm(clave, TamTag))
             {
@@ -70,10 +81,25 @@ namespace GestorContrasenas.Seguridad
             return Encoding.UTF8.GetString(plano);
         }
 
-        private static byte[] DerivarClave(string claveMaestra, byte[] salt)
+        // v1: PBKDF2-SHA256
+        private static byte[] DerivarClaveV1PBKDF2(string claveMaestra, byte[] salt)
         {
             using var pbkdf2 = new Rfc2898DeriveBytes(claveMaestra, salt, Iteraciones, HashAlgorithmName.SHA256);
             return pbkdf2.GetBytes(TamClave);
+        }
+
+        // v2: Argon2id
+        private static byte[] DerivarClaveV2Argon2id(string claveMaestra, byte[] salt)
+        {
+            var pwdBytes = Encoding.UTF8.GetBytes(claveMaestra);
+            using var argon = new Argon2id(pwdBytes)
+            {
+                Salt = salt,
+                DegreeOfParallelism = ArgonParalelo,
+                MemorySize = ArgonMemKB,
+                Iterations = ArgonIter
+            };
+            return argon.GetBytes(TamClave);
         }
     }
 }

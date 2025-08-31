@@ -82,6 +82,14 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 - Usa `.env` para secretos locales.
 - Considera rotar credenciales si se expusieron previamente.
 
+### Cifrado y versión de derivación de clave
+
+- El cifrado usa AES-GCM con formato versionado: `[version][salt][nonce][cipher][tag]` codificado en Base64.
+- Versiones soportadas:
+  - v1: PBKDF2-SHA256 (compatibilidad hacia atrás para secretos existentes).
+  - v2: Argon2id (por defecto para nuevos cifrados). Requiere el paquete `Konscious.Security.Cryptography.Argon2`.
+- Los datos cifrados con v1 siguen descifrando correctamente; los nuevos usos generan v2 automáticamente.
+
 ## Desarrollo
 
 - Estilo de código: español en nombres y comentarios; soluciones simples.
