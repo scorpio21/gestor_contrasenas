@@ -19,9 +19,17 @@ jobs:
       - name: Restore
         run: dotnet restore
 
+      - name: Install dotnet-format
+        run: dotnet tool install -g dotnet-format
+
+      - name: Verify code format
+        shell: pwsh
+        run: |
+          $env:PATH += ";$env:USERPROFILE\.dotnet\tools"
+          dotnet format --verify-no-changes
+
       - name: Build
         run: dotnet build -c Release --no-restore
 
-      - name: Test (si existen)
-        run: |
-          dotnet test -c Release --no-build || echo "Sin tests por ahora"
+      - name: Test
+        run: dotnet test -c Release --no-build test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj
