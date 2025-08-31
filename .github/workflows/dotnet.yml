@@ -16,8 +16,20 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
+      - name: Cache NuGet
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.nuget/packages
+          key: ${{ runner.os }}-nuget-${{ hashFiles('**/*.csproj') }}
+          restore-keys: |
+            ${{ runner.os }}-nuget-
+
       - name: Restore
-        run: dotnet restore
+        shell: pwsh
+        run: |
+          dotnet restore ./gestor_contraseñas.csproj
+          dotnet restore ./test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj
 
       - name: Install dotnet-format
         run: dotnet tool install -g dotnet-format
@@ -30,7 +42,9 @@ jobs:
           dotnet format --verify-no-changes
 
       - name: Build
-        run: dotnet build -c Release --no-restore
+        shell: pwsh
+        run: |
+          dotnet build -c Release --no-restore ./gestor_contraseñas.csproj
 
       - name: Test
-        run: dotnet test -c Release --no-build test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj
+        run: dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj
