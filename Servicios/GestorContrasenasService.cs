@@ -8,7 +8,7 @@ namespace GestorContrasenas.Servicios
     // Orquesta cifrado y acceso a datos
     public class GestorContrasenasService
     {
-        private readonly MySqlRepositorio repo;
+        private readonly IEntradasRepositorio repo;
         private readonly CifradoService cifrado;
         private readonly int usuarioId;
 
@@ -16,6 +16,14 @@ namespace GestorContrasenas.Servicios
         {
             repo = new MySqlRepositorio();
             cifrado = new CifradoService();
+            this.usuarioId = usuarioId;
+        }
+
+        // Constructor para pruebas/inyección
+        public GestorContrasenasService(int usuarioId, IEntradasRepositorio repositorio, CifradoService? cifradoService = null)
+        {
+            repo = repositorio;
+            cifrado = cifradoService ?? new CifradoService();
             this.usuarioId = usuarioId;
         }
 

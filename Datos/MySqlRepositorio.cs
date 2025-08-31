@@ -6,7 +6,7 @@ using GestorContrasenas.Dominio;
 namespace GestorContrasenas.Datos
 {
     // Acceso a datos MySQL. Usa la cadena de conexión desde la variable de entorno GESTOR_DB_CONN
-    public class MySqlRepositorio
+    public class MySqlRepositorio : IEntradasRepositorio
     {
         private readonly string cadenaConexion;
 

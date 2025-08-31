@@ -55,6 +55,12 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   --results-directory TestResults
 ```
 
+### Notas para tests unitarios
+
+- El servicio `Servicios/GestorContrasenasService.cs` admite inyección de dependencias del repositorio mediante la interfaz `Datos/IEntradasRepositorio`.
+- El repositorio por defecto es `Datos/MySqlRepositorio.cs`, que implementa `IEntradasRepositorio` y requiere la variable `GESTOR_DB_CONN`.
+- Para pruebas, se puede usar un repositorio en memoria (ver `test/GestorContrasenas.Tests/GestorContrasenasServiceTests.cs`) para evitar tocar MySQL real.
+
 ## Integración continua (GitHub Actions)
 
 - Workflow: `.github/workflows/dotnet.yml` (badge arriba).
@@ -64,7 +70,7 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 ## Estructura del proyecto
 
 - `Dominio/` Clases de dominio (`Usuario`, `EntradaContrasena`).
-- `Datos/` Repositorios (MySQL).
+- `Datos/` Repositorios (MySQL) y contrato `IEntradasRepositorio` para facilitar pruebas.
 - `Seguridad/` Servicios de cifrado y autenticación.
 - `Servicios/` Lógica de negocio (auth y gestor de contraseñas).
 - `UI/` Formularios WinForms.
