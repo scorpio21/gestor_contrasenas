@@ -8,6 +8,7 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.ColumnHeader colServicio;
         private System.Windows.Forms.ColumnHeader colUsuario;
         private System.Windows.Forms.ColumnHeader colSecreto;
+        private System.Windows.Forms.ColumnHeader colVer;
         private System.Windows.Forms.TextBox txtServicio;
         private System.Windows.Forms.TextBox txtUsuario;
         private System.Windows.Forms.TextBox txtSecreto;
@@ -24,6 +25,8 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.Label lblLoginUrl;
         private System.Windows.Forms.TextBox txtLoginUrl;
         private System.Windows.Forms.Button btnAbrirSitio;
+        private System.Windows.Forms.Button btnImportar;
+        private System.Windows.Forms.Button btnExportar;
 
         protected override void Dispose(bool disposing)
         {
@@ -57,6 +60,8 @@ namespace GestorContrasenas.UI
             this.lblLoginUrl = new System.Windows.Forms.Label();
             this.txtLoginUrl = new System.Windows.Forms.TextBox();
             this.btnAbrirSitio = new System.Windows.Forms.Button();
+            this.btnImportar = new System.Windows.Forms.Button();
+            this.btnExportar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lvEntradas
@@ -68,7 +73,8 @@ namespace GestorContrasenas.UI
             this.colId,
             this.colServicio,
             this.colUsuario,
-            this.colSecreto});
+            this.colSecreto,
+            this.colVer});
             this.lvEntradas.FullRowSelect = true;
             this.lvEntradas.GridLines = true;
             this.lvEntradas.Location = new System.Drawing.Point(12, 12);
@@ -78,6 +84,7 @@ namespace GestorContrasenas.UI
             this.lvEntradas.TabIndex = 0;
             this.lvEntradas.UseCompatibleStateImageBehavior = false;
             this.lvEntradas.View = System.Windows.Forms.View.Details;
+            this.lvEntradas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvEntradas_MouseClick);
             // 
             // colId
             // 
@@ -98,6 +105,11 @@ namespace GestorContrasenas.UI
             // 
             this.colSecreto.Text = "Contraseña";
             this.colSecreto.Width = 200;
+            // 
+            // colVer
+            // 
+            this.colVer.Text = "";
+            this.colVer.Width = 40;
             // 
             // lblServicio
             // 
@@ -234,6 +246,26 @@ namespace GestorContrasenas.UI
             this.btnRefrescar.UseVisualStyleBackColor = true;
             this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
             // 
+            // btnImportar
+            // 
+            this.btnImportar.Location = new System.Drawing.Point(436, 425);
+            this.btnImportar.Name = "btnImportar";
+            this.btnImportar.Size = new System.Drawing.Size(100, 28);
+            this.btnImportar.TabIndex = 19;
+            this.btnImportar.Text = "Importar CSV";
+            this.btnImportar.UseVisualStyleBackColor = true;
+            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
+            // 
+            // btnExportar
+            // 
+            this.btnExportar.Location = new System.Drawing.Point(542, 425);
+            this.btnExportar.Name = "btnExportar";
+            this.btnExportar.Size = new System.Drawing.Size(100, 28);
+            this.btnExportar.TabIndex = 20;
+            this.btnExportar.Text = "Exportar CSV";
+            this.btnExportar.UseVisualStyleBackColor = true;
+            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
+            // 
             // lblEstado
             // 
             this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -248,6 +280,8 @@ namespace GestorContrasenas.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 495);
+            this.Controls.Add(this.btnExportar);
+            this.Controls.Add(this.btnImportar);
             this.Controls.Add(this.btnAbrirSitio);
             this.Controls.Add(this.txtLoginUrl);
             this.Controls.Add(this.lblLoginUrl);

@@ -4,6 +4,12 @@
 
 Aplicación de escritorio (Windows Forms, .NET 8) para gestionar contraseñas de forma segura.
 
+## Reglas del proyecto
+
+Consulta las normas y convenciones de desarrollo en `docs/reglas.md`:
+
+- [Reglas globales de codificación](docs/reglas.md)
+
 ## Requisitos
 
 - .NET SDK 8.0
