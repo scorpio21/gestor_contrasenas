@@ -36,7 +36,7 @@ public class PasswordManager
         }
     }
 #endif
- #if false
+#if false
     public void AddPassword(string service, string username, string password)
     {
         var encrypted = Encrypt(password, _masterKey);
@@ -52,7 +52,7 @@ public class PasswordManager
         }
     }
 #endif
- #if false
+#if false
     public (string Service, string Username, string Password)[] GetPasswords()
     {
         using (var conn = new SQLiteConnection($"Data Source={_dbPath};"))
