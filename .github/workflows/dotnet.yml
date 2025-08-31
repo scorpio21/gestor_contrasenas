@@ -47,4 +47,23 @@ jobs:
           dotnet build -c Release --no-restore ./gestor_contraseñas.csproj
 
       - name: Test
-        run: dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj
+        shell: pwsh
+        run: |
+          dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj `
+            --logger "trx;LogFileName=test_results.trx" `
+            --collect:"XPlat Code Coverage" `
+            --results-directory TestResults
+
+      - name: "Publicar artefactos: TRX"
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults/**/*.trx
+          if-no-files-found: warn
+
+      - name: "Publicar artefactos: Cobertura"
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-cobertura
+          path: TestResults/**/coverage.cobertura.xml
+          if-no-files-found: warn
