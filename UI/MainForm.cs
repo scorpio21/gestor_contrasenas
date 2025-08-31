@@ -11,8 +11,10 @@ namespace GestorContrasenas.UI
     public partial class MainForm : Form
     {
         private readonly GestorContrasenasService servicio;
-        private readonly string claveMaestra;
+        private string claveMaestra;
         private readonly int usuarioId;
+        private string? filtroActual = null;
+        private string? ultimoClipboard = null;
 
         public MainForm(int usuarioId, string claveMaestra)
         {
@@ -21,6 +23,9 @@ namespace GestorContrasenas.UI
             servicio = new GestorContrasenasService(usuarioId);
             InitializeComponent();
             CargarListado();
+            // Iniciar temporizadores de seguridad
+            autoLockTimer.Start();
+            clipboardTimer.Start();
         }
 
         private void CargarListado()
@@ -29,6 +34,15 @@ namespace GestorContrasenas.UI
             lvEntradas.Items.Clear();
             foreach (var entrada in servicio.Listar())
             {
+                if (!string.IsNullOrWhiteSpace(filtroActual))
+                {
+                    var f = filtroActual!.Trim();
+                    bool coincide =
+                        (entrada.Servicio?.IndexOf(f, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (entrada.Usuario?.IndexOf(f, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                        (entrada.LoginUrl?.IndexOf(f, StringComparison.OrdinalIgnoreCase) >= 0);
+                    if (!coincide) continue;
+                }
                 var item = new ListViewItem(entrada.Id.ToString());
                 item.SubItems.Add(entrada.Servicio);
                 item.SubItems.Add(entrada.Usuario);
@@ -42,6 +56,7 @@ namespace GestorContrasenas.UI
 
         private void btnAgregar_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             var servicioTxt = txtServicio.Text.Trim();
             var usuarioTxt = txtUsuario.Text.Trim();
             var secretoTxt = txtSecreto.Text;
@@ -68,6 +83,7 @@ namespace GestorContrasenas.UI
 
         private void btnEliminar_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             if (lvEntradas.SelectedItems.Count == 0) return;
             var sel = lvEntradas.SelectedItems[0];
             if (!int.TryParse(sel.SubItems[0].Text, out var id)) return;
@@ -87,6 +103,7 @@ namespace GestorContrasenas.UI
 
         private void btnCopiar_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             if (lvEntradas.SelectedItems.Count == 0) return;
             var eSel = lvEntradas.SelectedItems[0].Tag as EntradaContrasena;
             if (eSel == null) return;
@@ -97,6 +114,9 @@ namespace GestorContrasenas.UI
                 {
                     Clipboard.SetText(secreto);
                     lblEstado.Text = "Contraseña copiada al portapapeles";
+                    ultimoClipboard = secreto;
+                    clipboardTimer.Stop();
+                    clipboardTimer.Start(); // limpiar en diferido
                 }
             }
             catch (Exception ex)
@@ -107,17 +127,20 @@ namespace GestorContrasenas.UI
 
         private void btnRefrescar_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             CargarListado();
         }
 
         private void btnVerSecreto_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             // Alternar visibilidad de la contraseña
             txtSecreto.PasswordChar = txtSecreto.PasswordChar == '\0' ? '•' : '\0';
         }
 
         private void btnGenerarSecreto_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             using var gen = new GeneradorForm();
             if (gen.ShowDialog(this) == DialogResult.OK)
             {
@@ -127,6 +150,7 @@ namespace GestorContrasenas.UI
 
         private void btnAbrirSitio_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             string? url = null;
             var txt = txtLoginUrl.Text.Trim();
             if (!string.IsNullOrWhiteSpace(txt))
@@ -169,6 +193,7 @@ namespace GestorContrasenas.UI
 
         private void btnImportar_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             // Importa un CSV (Edge/Chrome) con columnas: name,url,username,password,note
             using var dlg = new OpenFileDialog
             {
@@ -249,6 +274,7 @@ namespace GestorContrasenas.UI
 
         private void lvEntradas_MouseClick(object? sender, MouseEventArgs e)
         {
+            ResetAutoLockTimer();
             // Detectar clic en la columna del "ojito" para mostrar la contraseña descifrada
             var info = lvEntradas.HitTest(e.Location);
             if (info.Item == null || info.SubItem == null) return;
@@ -278,6 +304,7 @@ namespace GestorContrasenas.UI
 
         private void btnExportar_Click(object? sender, EventArgs e)
         {
+            ResetAutoLockTimer();
             // Exporta a CSV compatible con Excel: columnas name,url,username,password,note
             using var dlg = new SaveFileDialog
             {
@@ -342,6 +369,80 @@ namespace GestorContrasenas.UI
             {
                 MessageBox.Show(this, $"No se pudo exportar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Búsqueda y filtrado
+        private void txtBuscar_TextChanged(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            filtroActual = txtBuscar.Text;
+            CargarListado();
+        }
+
+        // Seguridad: Auto-lock por inactividad
+        private void autoLockTimer_Tick(object? sender, EventArgs e)
+        {
+            // Limpiar portapapeles si procede
+            try
+            {
+                if (!string.IsNullOrEmpty(ultimoClipboard) && Clipboard.ContainsText() && Clipboard.GetText() == ultimoClipboard)
+                {
+                    Clipboard.Clear();
+                }
+            }
+            catch { /* ignorar */ }
+            clipboardTimer.Stop();
+            ultimoClipboard = null;
+
+            // Solicitar reautenticación
+            using var login = new LoginForm();
+            var res = login.ShowDialog(this);
+            if (res == DialogResult.OK)
+            {
+                if (login.UsuarioId != this.usuarioId)
+                {
+                    MessageBox.Show(this, "El usuario no coincide con la sesión actual. Reinicia la aplicación para cambiar de usuario.", "Sesión", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Mantener usuario actual; solo actualizar clave
+                }
+                this.claveMaestra = login.ClaveMaestra;
+                // Refrescar vistas y reiniciar timers
+                CargarListado();
+                ResetAutoLockTimer();
+            }
+            else
+            {
+                // Cerrar aplicación si no reautentica
+                Close();
+            }
+        }
+
+        // Seguridad: limpieza de portapapeles
+        private void clipboardTimer_Tick(object? sender, EventArgs e)
+        {
+            try
+            {
+                if (!string.IsNullOrEmpty(ultimoClipboard) && Clipboard.ContainsText() && Clipboard.GetText() == ultimoClipboard)
+                {
+                    Clipboard.Clear();
+                    lblEstado.Text = "Portapapeles limpiado por seguridad";
+                }
+            }
+            catch { /* ignorar acceso al clipboard */ }
+            finally
+            {
+                ultimoClipboard = null;
+                clipboardTimer.Stop();
+            }
+        }
+
+        private void ResetAutoLockTimer()
+        {
+            try
+            {
+                autoLockTimer.Stop();
+                autoLockTimer.Start();
+            }
+            catch { /* ignorar */ }
         }
     }
 }

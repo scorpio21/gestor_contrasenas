@@ -27,6 +27,10 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.Button btnAbrirSitio;
         private System.Windows.Forms.Button btnImportar;
         private System.Windows.Forms.Button btnExportar;
+        private System.Windows.Forms.Label lblBuscar;
+        private System.Windows.Forms.TextBox txtBuscar;
+        private System.Windows.Forms.Timer autoLockTimer;
+        private System.Windows.Forms.Timer clipboardTimer;
 
         protected override void Dispose(bool disposing)
         {
@@ -63,6 +67,8 @@ namespace GestorContrasenas.UI
             this.btnAbrirSitio = new System.Windows.Forms.Button();
             this.btnImportar = new System.Windows.Forms.Button();
             this.btnExportar = new System.Windows.Forms.Button();
+            this.autoLockTimer = new System.Windows.Forms.Timer(this.components);
+            this.clipboardTimer = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // lvEntradas
@@ -115,7 +121,7 @@ namespace GestorContrasenas.UI
             // lblServicio
             // 
             this.lblServicio.AutoSize = true;
-            this.lblServicio.Location = new System.Drawing.Point(12, 325);
+            this.lblServicio.Location = new System.Drawing.Point(12, 345);
             this.lblServicio.Name = "lblServicio";
             this.lblServicio.Size = new System.Drawing.Size(50, 15);
             this.lblServicio.TabIndex = 1;
@@ -123,7 +129,7 @@ namespace GestorContrasenas.UI
             // 
             // txtServicio
             // 
-            this.txtServicio.Location = new System.Drawing.Point(12, 343);
+            this.txtServicio.Location = new System.Drawing.Point(12, 363);
             this.txtServicio.Name = "txtServicio";
             this.txtServicio.Size = new System.Drawing.Size(200, 23);
             this.txtServicio.TabIndex = 2;
@@ -131,7 +137,7 @@ namespace GestorContrasenas.UI
             // lblUsuario
             // 
             this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Location = new System.Drawing.Point(222, 325);
+            this.lblUsuario.Location = new System.Drawing.Point(222, 345);
             this.lblUsuario.Name = "lblUsuario";
             this.lblUsuario.Size = new System.Drawing.Size(47, 15);
             this.lblUsuario.TabIndex = 3;
@@ -139,7 +145,7 @@ namespace GestorContrasenas.UI
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(222, 343);
+            this.txtUsuario.Location = new System.Drawing.Point(222, 363);
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(200, 23);
             this.txtUsuario.TabIndex = 4;
@@ -147,7 +153,7 @@ namespace GestorContrasenas.UI
             // lblSecreto
             // 
             this.lblSecreto.AutoSize = true;
-            this.lblSecreto.Location = new System.Drawing.Point(432, 325);
+            this.lblSecreto.Location = new System.Drawing.Point(432, 345);
             this.lblSecreto.Name = "lblSecreto";
             this.lblSecreto.Size = new System.Drawing.Size(69, 15);
             this.lblSecreto.TabIndex = 5;
@@ -155,7 +161,7 @@ namespace GestorContrasenas.UI
             // 
             // txtSecreto
             // 
-            this.txtSecreto.Location = new System.Drawing.Point(432, 343);
+            this.txtSecreto.Location = new System.Drawing.Point(432, 363);
             this.txtSecreto.Name = "txtSecreto";
             this.txtSecreto.PasswordChar = '•';
             this.txtSecreto.Size = new System.Drawing.Size(180, 23);
@@ -163,7 +169,7 @@ namespace GestorContrasenas.UI
             // 
             // btnVerSecreto
             // 
-            this.btnVerSecreto.Location = new System.Drawing.Point(618, 343);
+            this.btnVerSecreto.Location = new System.Drawing.Point(618, 363);
             this.btnVerSecreto.Name = "btnVerSecreto";
             this.btnVerSecreto.Size = new System.Drawing.Size(28, 23);
             this.btnVerSecreto.TabIndex = 6;
@@ -173,7 +179,7 @@ namespace GestorContrasenas.UI
             // 
             // btnGenerarSecreto
             // 
-            this.btnGenerarSecreto.Location = new System.Drawing.Point(648, 343);
+            this.btnGenerarSecreto.Location = new System.Drawing.Point(648, 363);
             this.btnGenerarSecreto.Name = "btnGenerarSecreto";
             this.btnGenerarSecreto.Size = new System.Drawing.Size(28, 23);
             this.btnGenerarSecreto.TabIndex = 6;
@@ -184,7 +190,7 @@ namespace GestorContrasenas.UI
             // lblLoginUrl
             // 
             this.lblLoginUrl.AutoSize = true;
-            this.lblLoginUrl.Location = new System.Drawing.Point(12, 372);
+            this.lblLoginUrl.Location = new System.Drawing.Point(12, 392);
             this.lblLoginUrl.Name = "lblLoginUrl";
             this.lblLoginUrl.Size = new System.Drawing.Size(63, 15);
             this.lblLoginUrl.TabIndex = 12;
@@ -192,14 +198,14 @@ namespace GestorContrasenas.UI
             // 
             // txtLoginUrl
             // 
-            this.txtLoginUrl.Location = new System.Drawing.Point(12, 390);
+            this.txtLoginUrl.Location = new System.Drawing.Point(12, 410);
             this.txtLoginUrl.Name = "txtLoginUrl";
             this.txtLoginUrl.Size = new System.Drawing.Size(440, 23);
             this.txtLoginUrl.TabIndex = 13;
             // 
             // btnAbrirSitio
             // 
-            this.btnAbrirSitio.Location = new System.Drawing.Point(458, 389);
+            this.btnAbrirSitio.Location = new System.Drawing.Point(458, 409);
             this.btnAbrirSitio.Name = "btnAbrirSitio";
             this.btnAbrirSitio.Size = new System.Drawing.Size(100, 28);
             this.btnAbrirSitio.TabIndex = 14;
@@ -209,7 +215,7 @@ namespace GestorContrasenas.UI
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(12, 425);
+            this.btnAgregar.Location = new System.Drawing.Point(12, 445);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(100, 28);
             this.btnAgregar.TabIndex = 15;
@@ -219,7 +225,7 @@ namespace GestorContrasenas.UI
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(118, 425);
+            this.btnEliminar.Location = new System.Drawing.Point(118, 445);
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(100, 28);
             this.btnEliminar.TabIndex = 16;
@@ -229,7 +235,7 @@ namespace GestorContrasenas.UI
             // 
             // btnCopiar
             // 
-            this.btnCopiar.Location = new System.Drawing.Point(224, 425);
+            this.btnCopiar.Location = new System.Drawing.Point(224, 445);
             this.btnCopiar.Name = "btnCopiar";
             this.btnCopiar.Size = new System.Drawing.Size(100, 28);
             this.btnCopiar.TabIndex = 17;
@@ -239,7 +245,7 @@ namespace GestorContrasenas.UI
             // 
             // btnRefrescar
             // 
-            this.btnRefrescar.Location = new System.Drawing.Point(330, 425);
+            this.btnRefrescar.Location = new System.Drawing.Point(330, 445);
             this.btnRefrescar.Name = "btnRefrescar";
             this.btnRefrescar.Size = new System.Drawing.Size(100, 28);
             this.btnRefrescar.TabIndex = 18;
@@ -249,7 +255,7 @@ namespace GestorContrasenas.UI
             // 
             // btnImportar
             // 
-            this.btnImportar.Location = new System.Drawing.Point(436, 425);
+            this.btnImportar.Location = new System.Drawing.Point(436, 445);
             this.btnImportar.Name = "btnImportar";
             this.btnImportar.Size = new System.Drawing.Size(100, 28);
             this.btnImportar.TabIndex = 19;
@@ -259,7 +265,7 @@ namespace GestorContrasenas.UI
             // 
             // btnExportar
             // 
-            this.btnExportar.Location = new System.Drawing.Point(542, 425);
+            this.btnExportar.Location = new System.Drawing.Point(542, 445);
             this.btnExportar.Name = "btnExportar";
             this.btnExportar.Size = new System.Drawing.Size(100, 28);
             this.btnExportar.TabIndex = 20;
@@ -271,16 +277,28 @@ namespace GestorContrasenas.UI
             // 
             this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(12, 465);
+            this.lblEstado.Location = new System.Drawing.Point(12, 485);
             this.lblEstado.Name = "lblEstado";
             this.lblEstado.Size = new System.Drawing.Size(0, 15);
             this.lblEstado.TabIndex = 11;
+            // 
+            // autoLockTimer
+            // 
+            this.autoLockTimer.Interval = 300000; // 5 minutos
+            this.autoLockTimer.Tick += new System.EventHandler(this.autoLockTimer_Tick);
+            // 
+            // clipboardTimer
+            // 
+            this.clipboardTimer.Interval = 20000; // 20 segundos
+            this.clipboardTimer.Tick += new System.EventHandler(this.clipboardTimer_Tick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 495);
+            this.ClientSize = new System.Drawing.Size(684, 515);
+            this.Controls.Add(this.txtBuscar);
+            this.Controls.Add(this.lblBuscar);
             this.Controls.Add(this.btnExportar);
             this.Controls.Add(this.btnImportar);
             this.Controls.Add(this.btnAbrirSitio);

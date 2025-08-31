@@ -90,6 +90,17 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - v2: Argon2id (por defecto para nuevos cifrados). Requiere el paquete `Konscious.Security.Cryptography.Argon2`.
 - Los datos cifrados con v1 siguen descifrando correctamente; los nuevos usos generan v2 automáticamente.
 
+### Auto-lock e higiene de portapapeles (UI)
+
+- La aplicación se bloquea automáticamente tras 5 minutos de inactividad y pide reautenticación. Al reautenticar, se mantiene el mismo usuario y se actualiza la clave maestra de la sesión.
+- Al copiar una contraseña, se limpia el portapapeles automáticamente a los 20 segundos (si no cambió el contenido) y también al producirse el auto-lock.
+- Estos comportamientos están implementados en `UI/MainForm.cs` usando `autoLockTimer` y `clipboardTimer`.
+
+### Búsqueda y filtrado en el listado (UI)
+
+- Se añadió una caja de búsqueda encima del formulario para filtrar en vivo por servicio, usuario o URL de login.
+- Implementación en `UI/MainForm.Designer.cs` (controles `lblBuscar`, `txtBuscar`) y `UI/MainForm.cs` (método `txtBuscar_TextChanged`).
+
 ## Desarrollo
 
 - Estilo de código: español en nombres y comentarios; soluciones simples.
