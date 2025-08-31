@@ -32,12 +32,12 @@ Consulta las normas y convenciones de desarrollo en `docs/reglas.md`:
 
 - Desde PowerShell:
 
-  ```powershell
-  dotnet run -c Release
-  ```
+```powershell
+dotnet run -c Release
+```
 
 - Binarios:
-  - `bin/Release/net8.0-windows/gestor_contraseñas.exe`
+  - `bin/Release/net8.0-windows7.0/gestor_contraseñas.exe`
 
 ## Compilación
 
@@ -45,6 +45,21 @@ Consulta las normas y convenciones de desarrollo en `docs/reglas.md`:
 # Restaurar y compilar
 dotnet build -c Release
 ```
+
+## Pruebas
+
+```powershell
+dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.csproj \
+  --logger "trx;LogFileName=test_results.trx" \
+  --collect:"XPlat Code Coverage" \
+  --results-directory TestResults
+```
+
+## Integración continua (GitHub Actions)
+
+- Workflow: `.github/workflows/dotnet.yml` (badge arriba).
+- Ejecuta: restore, verificación de formato (`dotnet format --verify-no-changes`), build, tests y publica artefactos (binlog, TRX, cobertura Cobertura).
+- El runner es Windows; se configura `core.autocrlf=true` y `core.eol=crlf` para finales de línea consistentes.
 
 ## Estructura del proyecto
 
