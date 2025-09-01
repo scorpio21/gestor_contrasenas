@@ -103,6 +103,17 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - Menú: `UI/MainForm.Designer.cs` (ítem `Exportar comprometidas a CSV`).
   - Lógica: `UI/MainForm.cs` (`exportarComprometidasToolStripMenuItem_Click`).
 
+#### Menú contextual en entradas comprometidas
+
+- Clic derecho sobre una fila comprometida muestra la opción “Abrir sitio para cambiar contraseña”.
+- Abre la `LoginUrl` de la entrada en el navegador (se fuerza `https://` si no está presente).
+- La opción se habilita solo si:
+  - La columna `Comprometida` de la fila indica “Sí”.
+  - La entrada tiene `LoginUrl` configurada.
+- Implementación:
+  - UI: `UI/MainForm.Designer.cs` (`contextMenuEntradas`, `abrirSitioCambiarToolStripMenuItem`).
+  - Lógica: `UI/MainForm.cs` (`contextMenuEntradas_Opening`, `abrirSitioCambiarToolStripMenuItem_Click`).
+
 #### Ajustes y rendimiento
 
 - En la UI hay un checkbox: "Comprobar comprometida automáticamente" (`chkHibpAuto`).

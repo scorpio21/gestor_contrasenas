@@ -7,6 +7,7 @@ using GestorContrasenas.Dominio;
 using Microsoft.VisualBasic.FileIO; // Parser CSV
 using System.IO;
 using System.Threading.Tasks;
+using System.ComponentModel; // CancelEventArgs
 
 namespace GestorContrasenas.UI
 {
@@ -30,6 +31,59 @@ namespace GestorContrasenas.UI
             // Iniciar temporizadores de seguridad
             autoLockTimer.Start();
             clipboardTimer.Start();
+        }
+
+        // Menú contextual: habilitar opción solo si comprometida y con URL
+        private void contextMenuEntradas_Opening(object? sender, CancelEventArgs e)
+        {
+            bool enable = false;
+            try
+            {
+                if (lvEntradas.SelectedItems.Count > 0)
+                {
+                    var it = lvEntradas.SelectedItems[0];
+                    string comprometidaTxt = (it.SubItems.Count > 4 ? it.SubItems[4].Text : "").Trim();
+                    bool esComprometida = comprometidaTxt.StartsWith("Sí", StringComparison.OrdinalIgnoreCase);
+                    string? url = null;
+                    if (it.Tag is EntradaContrasena entrada && !string.IsNullOrWhiteSpace(entrada.LoginUrl))
+                    {
+                        url = entrada.LoginUrl;
+                    }
+                    enable = esComprometida && !string.IsNullOrWhiteSpace(url);
+                }
+            }
+            catch { enable = false; }
+            finally
+            {
+                abrirSitioCambiarToolStripMenuItem.Enabled = enable;
+            }
+        }
+
+        // Menú contextual: abrir sitio para cambiar contraseña
+        private void abrirSitioCambiarToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                if (lvEntradas.SelectedItems.Count == 0) return;
+                var it = lvEntradas.SelectedItems[0];
+                if (it.Tag is not EntradaContrasena entrada) return;
+                var url = entrada.LoginUrl;
+                if (string.IsNullOrWhiteSpace(url))
+                {
+                    MessageBox.Show(this, "La entrada no tiene URL de login asociada.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+                if (!url.StartsWith("http://", StringComparison.OrdinalIgnoreCase) && !url.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                {
+                    url = "https://" + url.Trim();
+                }
+                var psi = new ProcessStartInfo { FileName = url, UseShellExecute = true };
+                Process.Start(psi);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"No se pudo abrir el sitio: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CargarListado()

@@ -45,6 +45,8 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.Panel pnlFortaleza;
         private System.Windows.Forms.Panel pnlFortalezaValor;
         private System.Windows.Forms.CheckBox chkHibpAuto;
+        private System.Windows.Forms.ContextMenuStrip contextMenuEntradas;
+        private System.Windows.Forms.ToolStripMenuItem abrirSitioCambiarToolStripMenuItem;
 
         protected override void Dispose(bool disposing)
         {
@@ -95,6 +97,8 @@ namespace GestorContrasenas.UI
             this.pnlFortaleza = new System.Windows.Forms.Panel();
             this.pnlFortalezaValor = new System.Windows.Forms.Panel();
             this.chkHibpAuto = new System.Windows.Forms.CheckBox();
+            this.contextMenuEntradas = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.abrirSitioCambiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -130,6 +134,21 @@ namespace GestorContrasenas.UI
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 
+            // contextMenuEntradas
+            // 
+            this.contextMenuEntradas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.abrirSitioCambiarToolStripMenuItem});
+            this.contextMenuEntradas.Name = "contextMenuEntradas";
+            this.contextMenuEntradas.Size = new System.Drawing.Size(268, 26);
+            this.contextMenuEntradas.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuEntradas_Opening);
+            // 
+            // abrirSitioCambiarToolStripMenuItem
+            // 
+            this.abrirSitioCambiarToolStripMenuItem.Name = "abrirSitioCambiarToolStripMenuItem";
+            this.abrirSitioCambiarToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
+            this.abrirSitioCambiarToolStripMenuItem.Text = "Abrir sitio para cambiar contraseña";
+            this.abrirSitioCambiarToolStripMenuItem.Click += new System.EventHandler(this.abrirSitioCambiarToolStripMenuItem_Click);
+            // 
             // lvEntradas
             // 
             this.lvEntradas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -151,6 +170,7 @@ namespace GestorContrasenas.UI
             this.lvEntradas.TabIndex = 0;
             this.lvEntradas.UseCompatibleStateImageBehavior = false;
             this.lvEntradas.View = System.Windows.Forms.View.Details;
+            this.lvEntradas.ContextMenuStrip = this.contextMenuEntradas;
             this.lvEntradas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvEntradas_MouseClick);
             this.lvEntradas.SelectedIndexChanged += new System.EventHandler(this.lvEntradas_SelectedIndexChanged);
             this.lvEntradas.Leave += new System.EventHandler(this.lvEntradas_Leave);
