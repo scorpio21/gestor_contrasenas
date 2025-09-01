@@ -40,187 +40,297 @@ namespace GestorContrasenas.UI
 
         private void InitializeComponent()
         {
-            this.txtResultado = new TextBox();
-            this.btnCopiar = new Button();
-            this.tabs = new TabControl();
-            this.tabContrasena = new TabPage();
-            this.tabFrase = new TabPage();
-            this.nudLongitud = new NumericUpDown();
-            this.chkAZ = new CheckBox();
-            this.chkaz = new CheckBox();
-            this.chk09 = new CheckBox();
-            this.chkEspeciales = new CheckBox();
-            this.chkEvitarAmbiguos = new CheckBox();
-            this.btnGenerar = new Button();
-            this.btnUsar = new Button();
-            this.btnCancelar = new Button();
-            this.lblLongitud = new Label();
-            this.lblNumPalabras = new Label();
-            this.nudNumPalabras = new NumericUpDown();
-            this.lblSeparador = new Label();
-            this.txtSeparador = new TextBox();
-            this.chkMayusInicial = new CheckBox();
-            this.chkIncluirNumero = new CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitud)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNumPalabras)).BeginInit();
-            this.tabs.SuspendLayout();
-            this.tabContrasena.SuspendLayout();
-            this.tabFrase.SuspendLayout();
-            this.SuspendLayout();
+            txtResultado = new TextBox();
+            btnCopiar = new Button();
+            tabs = new TabControl();
+            tabContrasena = new TabPage();
+            lblLongitud = new Label();
+            nudLongitud = new NumericUpDown();
+            chkAZ = new CheckBox();
+            chk09 = new CheckBox();
+            chkEspeciales = new CheckBox();
+            chkEvitarAmbiguos = new CheckBox();
+            tabFrase = new TabPage();
+            lblNumPalabras = new Label();
+            nudNumPalabras = new NumericUpDown();
+            lblSeparador = new Label();
+            txtSeparador = new TextBox();
+            chkMayusInicial = new CheckBox();
+            chkIncluirNumero = new CheckBox();
+            btnGenerar = new Button();
+            btnUsar = new Button();
+            btnCancelar = new Button();
+            tabs.SuspendLayout();
+            tabContrasena.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudLongitud).BeginInit();
+            tabFrase.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)nudNumPalabras).BeginInit();
+            SuspendLayout();
+            // 
             // txtResultado
-            this.txtResultado.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            this.txtResultado.Location = new System.Drawing.Point(12, 12);
-            this.txtResultado.Name = "txtResultado";
-            this.txtResultado.ReadOnly = true;
-            this.txtResultado.Size = new System.Drawing.Size(460, 23);
-            this.txtResultado.TabIndex = 0;
+            // 
+            txtResultado.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtResultado.Location = new Point(17, 20);
+            txtResultado.Margin = new Padding(4, 5, 4, 5);
+            txtResultado.Name = "txtResultado";
+            txtResultado.ReadOnly = true;
+            txtResultado.Size = new Size(655, 31);
+            txtResultado.TabIndex = 0;
+            // 
             // btnCopiar
-            this.btnCopiar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            this.btnCopiar.Location = new System.Drawing.Point(412, 12);
-            this.btnCopiar.Name = "btnCopiar";
-            this.btnCopiar.Size = new System.Drawing.Size(60, 23);
-            this.btnCopiar.TabIndex = 6;
-            this.btnCopiar.Text = "Copiar";
-            this.btnCopiar.UseVisualStyleBackColor = true;
-            this.btnCopiar.Click += new EventHandler(this.btnCopiar_Click);
+            // 
+            btnCopiar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnCopiar.Location = new Point(589, 20);
+            btnCopiar.Margin = new Padding(4, 5, 4, 5);
+            btnCopiar.Name = "btnCopiar";
+            btnCopiar.Size = new Size(86, 38);
+            btnCopiar.TabIndex = 6;
+            btnCopiar.Text = "Copiar";
+            btnCopiar.UseVisualStyleBackColor = true;
+            btnCopiar.Click += btnCopiar_Click;
+            // 
             // tabs
-            this.tabs.Location = new System.Drawing.Point(12, 50);
-            this.tabs.Name = "tabs";
-            this.tabs.Size = new System.Drawing.Size(460, 120);
-            this.tabs.TabIndex = 7;
-            this.tabs.Controls.Add(this.tabContrasena);
-            this.tabs.Controls.Add(this.tabFrase);
+            // 
+            tabs.Controls.Add(tabContrasena);
+            tabs.Controls.Add(tabFrase);
+            tabs.Location = new Point(17, 83);
+            tabs.Margin = new Padding(4, 5, 4, 5);
+            tabs.Name = "tabs";
+            tabs.SelectedIndex = 0;
+            tabs.Size = new Size(657, 270);
+            tabs.TabIndex = 7;
+            // 
             // tabContrasena
-            this.tabContrasena.Text = "Contraseña";
-            this.tabContrasena.UseVisualStyleBackColor = true;
+            // 
+            tabContrasena.Controls.Add(lblLongitud);
+            tabContrasena.Controls.Add(nudLongitud);
+            tabContrasena.Controls.Add(chkAZ);
+            tabContrasena.Controls.Add(chk09);
+            tabContrasena.Controls.Add(chkEspeciales);
+            tabContrasena.Controls.Add(chkEvitarAmbiguos);
+            tabContrasena.Location = new Point(4, 34);
+            tabContrasena.Margin = new Padding(4, 5, 4, 5);
+            tabContrasena.Name = "tabContrasena";
+            tabContrasena.Size = new Size(649, 232);
+            tabContrasena.TabIndex = 0;
+            tabContrasena.Text = "Contraseña";
+            tabContrasena.UseVisualStyleBackColor = true;
+            // 
             // lblLongitud
-            this.lblLongitud.AutoSize = true;
-            this.lblLongitud.Location = new System.Drawing.Point(12, 50);
-            this.lblLongitud.Text = "Longitud";
+            // 
+            lblLongitud.AutoSize = true;
+            lblLongitud.Location = new Point(20, 40);
+            lblLongitud.Margin = new Padding(4, 0, 4, 0);
+            lblLongitud.Name = "lblLongitud";
+            lblLongitud.Size = new Size(83, 25);
+            lblLongitud.TabIndex = 0;
+            lblLongitud.Text = "Longitud";
+            // 
             // nudLongitud
-            this.nudLongitud.Location = new System.Drawing.Point(70, 48);
-            this.nudLongitud.Minimum = 5;
-            this.nudLongitud.Maximum = 128;
-            this.nudLongitud.Value = 14;
-            this.nudLongitud.TabIndex = 1;
+            // 
+            nudLongitud.Location = new Point(111, 34);
+            nudLongitud.Margin = new Padding(4, 5, 4, 5);
+            nudLongitud.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
+            nudLongitud.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
+            nudLongitud.Name = "nudLongitud";
+            nudLongitud.Size = new Size(171, 31);
+            nudLongitud.TabIndex = 1;
+            nudLongitud.Value = new decimal(new int[] { 14, 0, 0, 0 });
+            // 
             // chkAZ
-            this.chkAZ.AutoSize = true;
-            this.chkAZ.Checked = true;
-            this.chkAZ.Location = new System.Drawing.Point(12, 80);
-            this.chkAZ.Text = "A-Z";
-            // chkaz
-            this.chkaz.AutoSize = true;
-            this.chkaz.Checked = true;
-            this.chkaz.Location = new System.Drawing.Point(82, 80);
-            this.chkaz.Text = "a-z";
+            // 
+            chkAZ.AutoSize = true;
+            chkAZ.Checked = true;
+            chkAZ.CheckState = CheckState.Checked;
+            chkAZ.Location = new Point(20, 91);
+            chkAZ.Margin = new Padding(4, 5, 4, 5);
+            chkAZ.Name = "chkAZ";
+            chkAZ.Size = new Size(67, 29);
+            chkAZ.TabIndex = 2;
+            chkAZ.Text = "A-Z";
+            // 
             // chk09
-            this.chk09.AutoSize = true;
-            this.chk09.Checked = true;
-            this.chk09.Location = new System.Drawing.Point(152, 80);
-            this.chk09.Text = "0-9";
+            // 
+            chk09.AutoSize = true;
+            chk09.Checked = true;
+            chk09.CheckState = CheckState.Checked;
+            chk09.Location = new Point(220, 91);
+            chk09.Margin = new Padding(4, 5, 4, 5);
+            chk09.Name = "chk09";
+            chk09.Size = new Size(65, 29);
+            chk09.TabIndex = 3;
+            chk09.Text = "0-9";
+            // 
             // chkEspeciales
-            this.chkEspeciales.AutoSize = true;
-            this.chkEspeciales.Checked = true;
-            this.chkEspeciales.Location = new System.Drawing.Point(222, 80);
-            this.chkEspeciales.Text = "!@#$%&*?";
+            // 
+            chkEspeciales.AutoSize = true;
+            chkEspeciales.Checked = true;
+            chkEspeciales.CheckState = CheckState.Checked;
+            chkEspeciales.Location = new Point(320, 91);
+            chkEspeciales.Margin = new Padding(4, 5, 4, 5);
+            chkEspeciales.Name = "chkEspeciales";
+            chkEspeciales.Size = new Size(112, 29);
+            chkEspeciales.TabIndex = 4;
+            chkEspeciales.Text = "!@#$%&*?";
+            // 
             // chkEvitarAmbiguos
-            this.chkEvitarAmbiguos.AutoSize = true;
-            this.chkEvitarAmbiguos.Checked = true;
-            this.chkEvitarAmbiguos.Location = new System.Drawing.Point(13, 105);
-            this.chkEvitarAmbiguos.Text = "Evitar ambiguos (l, I, O, 0)";
-            // Añadir a tabContrasena
-            this.tabContrasena.Controls.Add(this.lblLongitud);
-            this.tabContrasena.Controls.Add(this.nudLongitud);
-            this.tabContrasena.Controls.Add(this.chkAZ);
-            this.tabContrasena.Controls.Add(this.chkaz);
-            this.tabContrasena.Controls.Add(this.chk09);
-            this.tabContrasena.Controls.Add(this.chkEspeciales);
-            this.tabContrasena.Controls.Add(this.chkEvitarAmbiguos);
+            // 
+            chkEvitarAmbiguos.AutoSize = true;
+            chkEvitarAmbiguos.Checked = true;
+            chkEvitarAmbiguos.CheckState = CheckState.Checked;
+            chkEvitarAmbiguos.Location = new Point(22, 133);
+            chkEvitarAmbiguos.Margin = new Padding(4, 5, 4, 5);
+            chkEvitarAmbiguos.Name = "chkEvitarAmbiguos";
+            chkEvitarAmbiguos.Size = new Size(241, 29);
+            chkEvitarAmbiguos.TabIndex = 5;
+            chkEvitarAmbiguos.Text = "Evitar ambiguos (l, I, O, 0)";
+            // 
             // tabFrase
-            this.tabFrase.Text = "Frase";
-            this.tabFrase.UseVisualStyleBackColor = true;
+            // 
+            tabFrase.Controls.Add(lblNumPalabras);
+            tabFrase.Controls.Add(nudNumPalabras);
+            tabFrase.Controls.Add(lblSeparador);
+            tabFrase.Controls.Add(txtSeparador);
+            tabFrase.Controls.Add(chkMayusInicial);
+            tabFrase.Controls.Add(chkIncluirNumero);
+            tabFrase.Location = new Point(4, 34);
+            tabFrase.Margin = new Padding(4, 5, 4, 5);
+            tabFrase.Name = "tabFrase";
+            tabFrase.Size = new Size(649, 232);
+            tabFrase.TabIndex = 1;
+            tabFrase.Text = "Frase";
+            tabFrase.UseVisualStyleBackColor = true;
+            // 
             // lblNumPalabras
-            this.lblNumPalabras.AutoSize = true;
-            this.lblNumPalabras.Location = new System.Drawing.Point(10, 12);
-            this.lblNumPalabras.Text = "Nº palabras";
+            // 
+            lblNumPalabras.AutoSize = true;
+            lblNumPalabras.Location = new Point(14, 20);
+            lblNumPalabras.Margin = new Padding(4, 0, 4, 0);
+            lblNumPalabras.Name = "lblNumPalabras";
+            lblNumPalabras.Size = new Size(105, 25);
+            lblNumPalabras.TabIndex = 0;
+            lblNumPalabras.Text = "Nº palabras";
+            // 
             // nudNumPalabras
-            this.nudNumPalabras.Location = new System.Drawing.Point(100, 10);
-            this.nudNumPalabras.Minimum = 3;
-            this.nudNumPalabras.Maximum = 20;
-            this.nudNumPalabras.Value = 6;
+            // 
+            nudNumPalabras.Location = new Point(143, 17);
+            nudNumPalabras.Margin = new Padding(4, 5, 4, 5);
+            nudNumPalabras.Maximum = new decimal(new int[] { 20, 0, 0, 0 });
+            nudNumPalabras.Minimum = new decimal(new int[] { 3, 0, 0, 0 });
+            nudNumPalabras.Name = "nudNumPalabras";
+            nudNumPalabras.Size = new Size(171, 31);
+            nudNumPalabras.TabIndex = 1;
+            nudNumPalabras.Value = new decimal(new int[] { 6, 0, 0, 0 });
+            // 
             // lblSeparador
-            this.lblSeparador.AutoSize = true;
-            this.lblSeparador.Location = new System.Drawing.Point(10, 42);
-            this.lblSeparador.Text = "Separador";
+            // 
+            lblSeparador.AutoSize = true;
+            lblSeparador.Location = new Point(14, 70);
+            lblSeparador.Margin = new Padding(4, 0, 4, 0);
+            lblSeparador.Name = "lblSeparador";
+            lblSeparador.Size = new Size(94, 25);
+            lblSeparador.TabIndex = 2;
+            lblSeparador.Text = "Separador";
+            // 
             // txtSeparador
-            this.txtSeparador.Location = new System.Drawing.Point(100, 39);
-            this.txtSeparador.Text = "-";
-            this.txtSeparador.Width = 40;
+            // 
+            txtSeparador.Location = new Point(143, 65);
+            txtSeparador.Margin = new Padding(4, 5, 4, 5);
+            txtSeparador.Name = "txtSeparador";
+            txtSeparador.Size = new Size(55, 31);
+            txtSeparador.TabIndex = 3;
+            txtSeparador.Text = "-";
+            // 
             // chkMayusInicial
-            this.chkMayusInicial.AutoSize = true;
-            this.chkMayusInicial.Checked = true;
-            this.chkMayusInicial.Location = new System.Drawing.Point(13, 72);
-            this.chkMayusInicial.Text = "Mayúsculas iniciales";
+            // 
+            chkMayusInicial.AutoSize = true;
+            chkMayusInicial.Checked = true;
+            chkMayusInicial.CheckState = CheckState.Checked;
+            chkMayusInicial.Location = new Point(19, 120);
+            chkMayusInicial.Margin = new Padding(4, 5, 4, 5);
+            chkMayusInicial.Name = "chkMayusInicial";
+            chkMayusInicial.Size = new Size(194, 29);
+            chkMayusInicial.TabIndex = 4;
+            chkMayusInicial.Text = "Mayúsculas iniciales";
+            // 
             // chkIncluirNumero
-            this.chkIncluirNumero.AutoSize = true;
-            this.chkIncluirNumero.Checked = true;
-            this.chkIncluirNumero.Location = new System.Drawing.Point(170, 72);
-            this.chkIncluirNumero.Text = "Incluir número";
-            // Añadir a tabFrase
-            this.tabFrase.Controls.Add(this.lblNumPalabras);
-            this.tabFrase.Controls.Add(this.nudNumPalabras);
-            this.tabFrase.Controls.Add(this.lblSeparador);
-            this.tabFrase.Controls.Add(this.txtSeparador);
-            this.tabFrase.Controls.Add(this.chkMayusInicial);
-            this.tabFrase.Controls.Add(this.chkIncluirNumero);
+            // 
+            chkIncluirNumero.AutoSize = true;
+            chkIncluirNumero.Checked = true;
+            chkIncluirNumero.CheckState = CheckState.Checked;
+            chkIncluirNumero.Location = new Point(243, 120);
+            chkIncluirNumero.Margin = new Padding(4, 5, 4, 5);
+            chkIncluirNumero.Name = "chkIncluirNumero";
+            chkIncluirNumero.Size = new Size(152, 29);
+            chkIncluirNumero.TabIndex = 5;
+            chkIncluirNumero.Text = "Incluir número";
+            // 
             // btnGenerar
-            this.btnGenerar.Location = new System.Drawing.Point(12, 185);
-            this.btnGenerar.Name = "btnGenerar";
-            this.btnGenerar.Size = new System.Drawing.Size(90, 28);
-            this.btnGenerar.Text = "Generar";
-            this.btnGenerar.UseVisualStyleBackColor = true;
-            this.btnGenerar.Click += new EventHandler(this.btnGenerar_Click);
+            // 
+            btnGenerar.BackColor = Color.MediumSpringGreen;
+            btnGenerar.Location = new Point(21, 363);
+            btnGenerar.Margin = new Padding(4, 5, 4, 5);
+            btnGenerar.Name = "btnGenerar";
+            btnGenerar.Size = new Size(129, 47);
+            btnGenerar.TabIndex = 10;
+            btnGenerar.Text = "Generar";
+            btnGenerar.UseVisualStyleBackColor = false;
+            btnGenerar.Click += btnGenerar_Click;
+            // 
             // btnUsar
-            this.btnUsar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.btnUsar.Location = new System.Drawing.Point(296, 225);
-            this.btnUsar.Name = "btnUsar";
-            this.btnUsar.Size = new System.Drawing.Size(85, 28);
-            this.btnUsar.Text = "Usar";
-            this.btnUsar.UseVisualStyleBackColor = true;
-            this.btnUsar.Click += new EventHandler(this.btnUsar_Click);
+            // 
+            btnUsar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnUsar.BackColor = Color.Lime;
+            btnUsar.Location = new Point(423, 375);
+            btnUsar.Margin = new Padding(4, 5, 4, 5);
+            btnUsar.Name = "btnUsar";
+            btnUsar.Size = new Size(121, 47);
+            btnUsar.TabIndex = 9;
+            btnUsar.Text = "Usar";
+            btnUsar.UseVisualStyleBackColor = false;
+            btnUsar.Click += btnUsar_Click;
+            // 
             // btnCancelar
-            this.btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            this.btnCancelar.Location = new System.Drawing.Point(387, 225);
-            this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(85, 28);
-            this.btnCancelar.Text = "Cancelar";
-            this.btnCancelar.UseVisualStyleBackColor = true;
-            this.btnCancelar.Click += new EventHandler(this.btnCancelar_Click);
+            // 
+            btnCancelar.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnCancelar.BackColor = Color.Red;
+            btnCancelar.ForeColor = Color.Yellow;
+            btnCancelar.Location = new Point(553, 375);
+            btnCancelar.Margin = new Padding(4, 5, 4, 5);
+            btnCancelar.Name = "btnCancelar";
+            btnCancelar.Size = new Size(121, 47);
+            btnCancelar.TabIndex = 8;
+            btnCancelar.Text = "Cancelar";
+            btnCancelar.UseVisualStyleBackColor = false;
+            btnCancelar.Click += btnCancelar_Click;
+            // 
             // GeneradorForm
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 265);
-            this.Controls.Add(this.tabs);
-            this.Controls.Add(this.btnCopiar);
-            this.Controls.Add(this.txtResultado);
-            this.Controls.Add(this.btnCancelar);
-            this.Controls.Add(this.btnUsar);
-            this.Controls.Add(this.btnGenerar);
-            this.FormBorderStyle = FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "GeneradorForm";
-            this.StartPosition = FormStartPosition.CenterParent;
-            this.Text = "Generador de contraseñas";
-            ((System.ComponentModel.ISupportInitialize)(this.nudLongitud)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudNumPalabras)).EndInit();
-            this.tabs.ResumeLayout(false);
-            this.tabContrasena.ResumeLayout(false);
-            this.tabContrasena.PerformLayout();
-            this.tabFrase.ResumeLayout(false);
-            this.tabFrase.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            // 
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(691, 442);
+            Controls.Add(tabs);
+            Controls.Add(btnCopiar);
+            Controls.Add(txtResultado);
+            Controls.Add(btnCancelar);
+            Controls.Add(btnUsar);
+            Controls.Add(btnGenerar);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(4, 5, 4, 5);
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "GeneradorForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Generador de contraseñas";
+            tabs.ResumeLayout(false);
+            tabContrasena.ResumeLayout(false);
+            tabContrasena.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudLongitud).EndInit();
+            tabFrase.ResumeLayout(false);
+            tabFrase.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)nudNumPalabras).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }
