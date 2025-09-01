@@ -43,6 +43,8 @@ namespace GestorContrasenas
                 try { Logger.Warn($"Fallo al asegurar esquema: {ex.Message}"); } catch { }
                 // Evitar bloquear el arranque por esto; el repositorio volverá a intentar
             }
+            // Habilitar High DPI para escalado correcto en pantallas de alta densidad
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             try

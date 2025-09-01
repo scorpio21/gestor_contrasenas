@@ -119,8 +119,8 @@ namespace GestorContrasenas.UI
             // 
             // LoginForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Dpi;
             this.ClientSize = new System.Drawing.Size(344, 168);
             this.Controls.Add(this.chkRecordar);
             this.Controls.Add(this.btnRegistrarse);
