@@ -154,6 +154,15 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 - Usa `.env` para secretos locales.
 - Considera rotar credenciales si se expusieron previamente.
 
+### Logging y manejo de errores
+
+- La app registra eventos y errores de forma discreta (sin secretos) en:
+  - `%LOCALAPPDATA%/gestor_contrasenas/logs/app.log`
+- Manejadores globales configurados en `Program.cs`:
+  - `Application.ThreadException`
+  - `AppDomain.CurrentDomain.UnhandledException`
+- Utilidad de logging: `Seguridad/Logger.cs` (`Info`, `Warn`, `Error`).
+
 ### Cifrado y versión de derivación de clave
 
 - El cifrado usa AES-GCM con formato versionado: `[version][salt][nonce][cipher][tag]` codificado en Base64.

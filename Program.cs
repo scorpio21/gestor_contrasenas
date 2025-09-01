@@ -11,6 +11,22 @@ namespace GestorContrasenas
         [STAThread]
         static void Main()
         {
+            // Configurar manejo global de excepciones
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+            Application.ThreadException += (s, e) =>
+            {
+                try { Logger.Error(e.Exception, "ThreadException"); } catch { }
+                MessageBox.Show("Ha ocurrido un error inesperado. Se registró en el log.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            };
+            AppDomain.CurrentDomain.UnhandledException += (s, e) =>
+            {
+                try
+                {
+                    if (e.ExceptionObject is Exception ex) Logger.Error(ex, "UnhandledException");
+                    else Logger.Error($"UnhandledException: {e.ExceptionObject}");
+                }
+                catch { }
+            };
             // Cargar variables de entorno desde .env si existe
             try { Env.Load(); } catch { /* opcional: ignorar si no hay .env */ }
             // Asegurar esquema de base de datos si hay conexión configurada
@@ -22,7 +38,11 @@ namespace GestorContrasenas
                     Migraciones.AsegurarEsquema(conn);
                 }
             }
-            catch { /* Evitar bloquear el arranque por esto; el repositorio volverá a intentar */ }
+            catch (Exception ex)
+            {
+                try { Logger.Warn($"Fallo al asegurar esquema: {ex.Message}"); } catch { }
+                // Evitar bloquear el arranque por esto; el repositorio volverá a intentar
+            }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             try
@@ -47,7 +67,8 @@ namespace GestorContrasenas
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error al iniciar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                try { Logger.Error(ex, "Arranque Main"); } catch { }
+                MessageBox.Show("No se pudo iniciar la aplicación. Revisa el log para más detalles.", "Error al iniciar", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
