@@ -13,6 +13,11 @@ namespace GestorContrasenas.UI
         public GeneradorForm()
         {
             InitializeComponent();
+            // Asegurar pestaña por defecto para evitar null en SelectedTab
+            if (tabs != null && tabContrasena != null)
+            {
+                tabs.SelectedTab = tabContrasena;
+            }
             Generar();
         }
 
@@ -41,7 +46,7 @@ namespace GestorContrasenas.UI
 
         private void Generar()
         {
-            if (tabs.SelectedTab == tabFrase)
+            if (tabs != null && tabs.SelectedTab == tabFrase)
             {
                 GenerarFrase();
             }
@@ -63,10 +68,15 @@ namespace GestorContrasenas.UI
             const string sp = "!@#$%^&*()-_=+[]{};:,.?/\\|`~";
             const string ambiguos = "Il1O0";
 
-            if (chkAZ.Checked) sbPool.Append(AZ);
-            if (chkaz.Checked) sbPool.Append(az);
-            if (chk09.Checked) sbPool.Append(d0);
-            if (chkEspeciales.Checked) sbPool.Append(sp);
+            bool incAZ = chkAZ?.Checked == true;
+            bool incaz = chkaz?.Checked == true;
+            bool inc09 = chk09?.Checked == true;
+            bool incSp = chkEspeciales?.Checked == true;
+
+            if (incAZ) sbPool.Append(AZ);
+            if (incaz) sbPool.Append(az);
+            if (inc09) sbPool.Append(d0);
+            if (incSp) sbPool.Append(sp);
 
             var pool = sbPool.ToString();
             if (string.IsNullOrEmpty(pool))
@@ -75,7 +85,7 @@ namespace GestorContrasenas.UI
                 return;
             }
 
-            if (chkEvitarAmbiguos.Checked)
+            if (chkEvitarAmbiguos?.Checked == true)
             {
                 pool = new string(pool.Where(c => !ambiguos.Contains(c)).ToArray());
             }
