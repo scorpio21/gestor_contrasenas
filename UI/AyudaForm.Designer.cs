@@ -62,8 +62,8 @@ namespace GestorContrasenas.UI
             // 
             // AyudaForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new System.Drawing.SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new System.Drawing.Size(900, 600);
             Controls.Add(splitContainer1);
             Name = "AyudaForm";

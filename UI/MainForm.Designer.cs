@@ -562,8 +562,8 @@ namespace GestorContrasenas.UI
             // 
             // MainForm
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
+            AutoScaleDimensions = new SizeF(96F, 96F);
+            AutoScaleMode = AutoScaleMode.Dpi;
             ClientSize = new Size(1218, 917);
             // Agregar primero el menu para que reserve el espacio superior
             Controls.Add(menuStrip1);
