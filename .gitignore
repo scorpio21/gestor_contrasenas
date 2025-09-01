@@ -11,3 +11,6 @@ obj/
 *.user
 *.log
 
+# Artefactos de publicación
+dist/
+
