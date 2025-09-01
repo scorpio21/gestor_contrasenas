@@ -94,6 +94,15 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - Servicio: `Servicios/GestorContrasenasService.cs` (`EstaComprometidaAsync`).
   - UI: `UI/MainForm.Designer.cs` (columna `colComprometida`) y `UI/MainForm.cs` (métodos `ComprobarComprometidaAsync`, integración en selección y al revelar).
 
+#### Exportar comprometidas a CSV (Archivo > Exportar comprometidas a CSV)
+
+- Permite generar un CSV solo con las entradas cuya contraseña aparece comprometida, sin incluir las contraseñas en el archivo.
+- Columnas exportadas: `name,url,username,comprometida,veces`.
+- La comprobación usa la API Pwned Passwords con k-anonimato; se respeta el rate limit.
+- Implementación:
+  - Menú: `UI/MainForm.Designer.cs` (ítem `Exportar comprometidas a CSV`).
+  - Lógica: `UI/MainForm.cs` (`exportarComprometidasToolStripMenuItem_Click`).
+
 #### Ajustes y rendimiento
 
 - En la UI hay un checkbox: "Comprobar comprometida automáticamente" (`chkHibpAuto`).

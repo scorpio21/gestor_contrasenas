@@ -41,6 +41,7 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem exportarComprometidasToolStripMenuItem;
         private System.Windows.Forms.Panel pnlFortaleza;
         private System.Windows.Forms.Panel pnlFortalezaValor;
         private System.Windows.Forms.CheckBox chkHibpAuto;
@@ -89,6 +90,7 @@ namespace GestorContrasenas.UI
             this.revealTimer = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportarComprometidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlFortaleza = new System.Windows.Forms.Panel();
             this.pnlFortalezaValor = new System.Windows.Forms.Panel();
@@ -108,15 +110,23 @@ namespace GestorContrasenas.UI
             // archivoToolStripMenuItem
             // 
             this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.exportarComprometidasToolStripMenuItem,
             this.salirToolStripMenuItem});
             this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
             this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
             this.archivoToolStripMenuItem.Text = "Archivo";
             // 
+            // exportarComprometidasToolStripMenuItem
+            // 
+            this.exportarComprometidasToolStripMenuItem.Name = "exportarComprometidasToolStripMenuItem";
+            this.exportarComprometidasToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
+            this.exportarComprometidasToolStripMenuItem.Text = "Exportar comprometidas a CSV";
+            this.exportarComprometidasToolStripMenuItem.Click += new System.EventHandler(this.exportarComprometidasToolStripMenuItem_Click);
+            // 
             // salirToolStripMenuItem
             // 
             this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(96, 22);
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
             this.salirToolStripMenuItem.Text = "Salir";
             this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
             // 

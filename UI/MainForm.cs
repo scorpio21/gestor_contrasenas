@@ -226,6 +226,89 @@ namespace GestorContrasenas.UI
             Close();
         }
 
+        // Archivo > Exportar comprometidas a CSV
+        private async void exportarComprometidasToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            using var dlg = new SaveFileDialog
+            {
+                Title = "Guardar comprometidas como CSV",
+                Filter = "CSV (*.csv)|*.csv",
+                FileName = "comprometidas.csv",
+                OverwritePrompt = true
+            };
+            if (dlg.ShowDialog(this) != DialogResult.OK) return;
+
+            // Aviso: se realizarán consultas a HIBP y NO se incluirán contraseñas en el CSV
+            var continuar = MessageBox.Show(this,
+                "Se consultará HIBP para cada entrada y el archivo NO incluirá las contraseñas. ¿Continuar?",
+                "Exportar comprometidas",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information);
+            if (continuar != DialogResult.Yes) return;
+
+            try
+            {
+                UseWaitCursor = true;
+                Enabled = false;
+
+                // Crear índice Id -> URL para incluir en CSV
+                var mapaUrls = new System.Collections.Generic.Dictionary<int, string?>(capacity: 256);
+                foreach (var entrada in servicio.Listar())
+                {
+                    mapaUrls[entrada.Id] = entrada.LoginUrl;
+                }
+
+                int total = 0, comprometidas = 0;
+                using var sw = new StreamWriter(dlg.FileName, false, new System.Text.UTF8Encoding(true));
+
+                string Esc(string? s)
+                {
+                    s ??= string.Empty;
+                    var need = s.Contains('"') || s.Contains(',') || s.Contains('\n') || s.Contains('\r');
+                    if (s.Contains('"')) s = s.Replace("\"", "\"\"");
+                    return need ? "\"" + s + "\"" : s;
+                }
+
+                // Cabeceras
+                sw.WriteLine("name,url,username,comprometida,veces");
+
+                // Iterar descifrando y comprobando HIBP una a una (cache acelera repetidas)
+                foreach (var fila in servicio.ListarDescifrado(claveMaestra))
+                {
+                    total++;
+                    if (string.IsNullOrEmpty(fila.Secreto)) continue;
+                    var (comp, conteo) = await servicio.EstaComprometidaAsync(fila.Secreto);
+                    if (comp)
+                    {
+                        comprometidas++;
+                        mapaUrls.TryGetValue(fila.Id, out var url);
+                        var line = string.Join(",", new[]
+                        {
+                            Esc(fila.Servicio),
+                            Esc(url ?? string.Empty),
+                            Esc(fila.Usuario),
+                            "Sí",
+                            (conteo.HasValue ? conteo.Value.ToString() : "")
+                        });
+                        sw.WriteLine(line);
+                    }
+                }
+
+                sw.Flush();
+                MessageBox.Show(this, $"Exportación completada. Total: {total}. Comprometidas: {comprometidas}.", "Exportar comprometidas", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"No se pudo exportar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            finally
+            {
+                Enabled = true;
+                UseWaitCursor = false;
+            }
+        }
+
         private void txtSecreto_TextChanged(object? sender, EventArgs e)
         {
             ResetAutoLockTimer();
