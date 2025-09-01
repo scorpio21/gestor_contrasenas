@@ -90,6 +90,11 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 
 ## Cambios recientes (UI)
 
+- Corrección en ventana de Ayuda (`UI/AyudaForm.*`):
+  - Se elimina el `SplitterDistance` del diseñador y se calcula de forma segura tras aplicar el layout, respetando `Panel1MinSize`/`Panel2MinSize`.
+  - MinSize se establecen durante `Load` diferido para evitar `InvalidOperationException` en `EndInit`.
+  - Manejo de errores y logging al abrir/cargar la Ayuda para mostrar mensajes claros y registrar detalles en el log.
+
 - Alineación y anclajes para evitar solapes al redimensionar (`UI/MainForm.Designer.cs`):
   - Controles de fortaleza (`lblFortaleza`, `pnlFortaleza`, `pnlFortalezaValor`) con Anchor = Top | Left.
   - Bloque de búsqueda (`lblBuscar`, `txtBuscar`) anclados en Top | Left y reposicionados para no solapar el listado.
@@ -190,6 +195,12 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - Utilidad: `Seguridad/RecordarSesion.cs` (métodos `Guardar`, `Cargar`, `Limpiar`).
   - UI: `UI/LoginForm.Designer.cs` (checkbox `chkRecordar`) y `UI/LoginForm.cs` (usa `RecordarSesion.Guardar` tras login exitoso).
   - Inicio: `Program.cs` (si `RecordarSesion.Cargar()` retorna datos, abre `MainForm` directamente).
+
+## Ayuda (F1)
+
+- Menú `Ayuda > Ver ayuda` o pulsando `F1` abre una ventana con índice y contenido de ayuda.
+- Los documentos se cargan desde `docs/ayuda/` (formato Markdown `.md`).
+- También está disponible `Ayuda > Acerca de…` con versión y enlace al repositorio.
 
 ### Auto-lock e higiene de portapapeles (UI)
 

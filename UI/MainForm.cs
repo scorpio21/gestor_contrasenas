@@ -437,6 +437,33 @@ namespace GestorContrasenas.UI
             }
         }
 
+        // Ayuda > Ver ayuda (F1)
+        private void verAyudaToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            try
+            {
+                using var f = new AyudaForm();
+                f.ShowDialog(this);
+            }
+            catch (Exception ex)
+            {
+                try { Logger.Error(ex, "Abrir Ayuda"); } catch { }
+                MessageBox.Show(this, $"No se pudo abrir la Ayuda: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // Ayuda > Acerca de…
+        private void acercaDeToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            var ver = typeof(MainForm).Assembly.GetName().Version?.ToString() ?? string.Empty;
+            var msg = "Gestor de Contraseñas" + Environment.NewLine;
+            if (!string.IsNullOrEmpty(ver)) msg += $"Versión: {ver}{Environment.NewLine}";
+            msg += "Repositorio: https://github.com/scorpio21/gestor_contrasenas" + Environment.NewLine + "© 2025";
+            MessageBox.Show(this, msg, "Acerca de", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void txtSecreto_TextChanged(object? sender, EventArgs e)
         {
             ResetAutoLockTimer();
