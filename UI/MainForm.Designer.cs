@@ -47,6 +47,7 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.CheckBox chkHibpAuto;
         private System.Windows.Forms.ContextMenuStrip contextMenuEntradas;
         private System.Windows.Forms.ToolStripMenuItem abrirSitioCambiarToolStripMenuItem;
+        private System.Windows.Forms.Button btnGuardar;
 
         protected override void Dispose(bool disposing)
         {
@@ -77,6 +78,7 @@ namespace GestorContrasenas.UI
             this.btnEliminar = new System.Windows.Forms.Button();
             this.btnCopiar = new System.Windows.Forms.Button();
             this.btnRefrescar = new System.Windows.Forms.Button();
+            this.btnGuardar = new System.Windows.Forms.Button();
             this.lblEstado = new System.Windows.Forms.Label();
             this.btnVerSecreto = new System.Windows.Forms.Button();
             this.btnGenerarSecreto = new System.Windows.Forms.Button();
@@ -313,9 +315,20 @@ namespace GestorContrasenas.UI
             this.btnAgregar.UseVisualStyleBackColor = true;
             this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
+            // btnGuardar
+            // 
+            this.btnGuardar.Location = new System.Drawing.Point(124, 460);
+            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnGuardar.Name = "btnGuardar";
+            this.btnGuardar.Size = new System.Drawing.Size(120, 28);
+            this.btnGuardar.TabIndex = 15;
+            this.btnGuardar.Text = "Guardar cambios";
+            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(124, 460);
+            this.btnEliminar.Location = new System.Drawing.Point(250, 460);
             this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.btnEliminar.Name = "btnEliminar";
             this.btnEliminar.Size = new System.Drawing.Size(100, 28);
@@ -326,7 +339,7 @@ namespace GestorContrasenas.UI
             // 
             // btnCopiar
             // 
-            this.btnCopiar.Location = new System.Drawing.Point(236, 460);
+            this.btnCopiar.Location = new System.Drawing.Point(362, 460);
             this.btnCopiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.btnCopiar.Name = "btnCopiar";
             this.btnCopiar.Size = new System.Drawing.Size(100, 28);
@@ -337,7 +350,7 @@ namespace GestorContrasenas.UI
             // 
             // btnRefrescar
             // 
-            this.btnRefrescar.Location = new System.Drawing.Point(348, 460);
+            this.btnRefrescar.Location = new System.Drawing.Point(474, 460);
             this.btnRefrescar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.btnRefrescar.Name = "btnRefrescar";
             this.btnRefrescar.Size = new System.Drawing.Size(100, 28);
@@ -525,6 +538,7 @@ namespace GestorContrasenas.UI
             this.Controls.Add(this.btnRefrescar);
             this.Controls.Add(this.btnCopiar);
             this.Controls.Add(this.btnEliminar);
+            this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.btnAgregar);
             this.Controls.Add(this.txtSecreto);
             this.Controls.Add(this.lblSecreto);

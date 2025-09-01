@@ -33,6 +33,66 @@ namespace GestorContrasenas.UI
             clipboardTimer.Start();
         }
 
+        private void btnGuardar_Click(object? sender, EventArgs e)
+        {
+            ResetAutoLockTimer();
+            if (lvEntradas.SelectedItems.Count == 0)
+            {
+                MessageBox.Show(this, "Selecciona una entrada para guardar cambios.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var sel = lvEntradas.SelectedItems[0];
+            if (!int.TryParse(sel.SubItems[0].Text, out var id)) return;
+            if (sel.Tag is not EntradaContrasena entradaActual) return;
+
+            var servicioTxt = txtServicio.Text.Trim();
+            var usuarioTxt = txtUsuario.Text.Trim();
+            var secretoTxt = txtSecreto.Text; // puede estar vacío para preservar
+            var loginUrlTxt = txtLoginUrl.Text.Trim();
+
+            if (servicioTxt.Length == 0 || usuarioTxt.Length == 0)
+            {
+                MessageBox.Show(this, "Servicio y usuario son obligatorios.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                // Si contraseña vacía, preservar la existente
+                if (string.IsNullOrEmpty(secretoTxt))
+                {
+                    try
+                    {
+                        secretoTxt = servicio.ObtenerSecretoDescifrado(entradaActual, claveMaestra);
+                    }
+                    catch
+                    {
+                        MessageBox.Show(this, "No se pudo recuperar la contraseña actual. Escribe una nueva.", "Guardar", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                }
+
+                servicio.Actualizar(id, servicioTxt, usuarioTxt, secretoTxt, claveMaestra, string.IsNullOrWhiteSpace(loginUrlTxt) ? null : loginUrlTxt);
+                CargarListado();
+                // Re-seleccionar el elemento actualizado
+                foreach (ListViewItem it in lvEntradas.Items)
+                {
+                    if (it.SubItems.Count > 0 && it.SubItems[0].Text == id.ToString())
+                    {
+                        it.Selected = true;
+                        it.EnsureVisible();
+                        break;
+                    }
+                }
+                lblEstado.Text = "Cambios guardados";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, $"No se pudo guardar: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         // Menú contextual: habilitar opción solo si comprometida y con URL
         private void contextMenuEntradas_Opening(object? sender, CancelEventArgs e)
         {
@@ -591,6 +651,11 @@ namespace GestorContrasenas.UI
                 {
                     try
                     {
+                        // Rellenar los campos de edición con la entrada seleccionada
+                        txtServicio.Text = entrada.Servicio ?? string.Empty;
+                        txtUsuario.Text = entrada.Usuario ?? string.Empty;
+                        txtLoginUrl.Text = entrada.LoginUrl ?? string.Empty;
+
                         var secreto = servicio.ObtenerSecretoDescifrado(entrada, claveMaestra);
                         if (hibpAuto && !string.IsNullOrEmpty(secreto))
                         {

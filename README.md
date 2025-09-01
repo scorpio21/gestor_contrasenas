@@ -114,6 +114,18 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - UI: `UI/MainForm.Designer.cs` (`contextMenuEntradas`, `abrirSitioCambiarToolStripMenuItem`).
   - Lógica: `UI/MainForm.cs` (`contextMenuEntradas_Opening`, `abrirSitioCambiarToolStripMenuItem_Click`).
 
+#### Editar y guardar cambios de entradas
+
+- Al seleccionar una fila del listado, los campos de edición se rellenan automáticamente:
+  - `Servicio` (`txtServicio`)
+  - `Usuario` (`txtUsuario`)
+  - `LoginUrl` (`txtLoginUrl`)
+- Tras modificar los campos, usa el botón `Guardar cambios` para actualizar la entrada seleccionada.
+- Si dejas la `Contraseña` en blanco al guardar, se preserva la contraseña actual de la entrada (no se modifica).
+- Implementación:
+  - UI: `UI/MainForm.Designer.cs` (botón `btnGuardar`).
+  - Lógica: `UI/MainForm.cs` (`lvEntradas_SelectedIndexChanged` para rellenar campos, `btnGuardar_Click` para actualizar con `GestorContrasenasService.Actualizar`).
+
 #### Ajustes y rendimiento
 
 - En la UI hay un checkbox: "Comprobar comprometida automáticamente" (`chkHibpAuto`).
