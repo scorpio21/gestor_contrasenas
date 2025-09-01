@@ -50,6 +50,16 @@ dotnet run -c Release
 dotnet build -c Release
 ```
 
+## Soporte High‑DPI
+
+- La aplicación está preparada para pantallas de alta densidad:
+  - `Program.cs`: `Application.SetHighDpiMode(HighDpiMode.SystemAware)`.
+  - Formularios con `AutoScaleMode = Dpi` y `AutoScaleDimensions = new SizeF(96F, 96F)`.
+- Verificación manual recomendada (Windows > Configuración > Pantalla > Escala):
+  - 100%, 125%, 150%, 200%.
+  - Formularios a revisar: `UI/MainForm`, `UI/LoginForm`, `UI/AyudaForm`.
+  - Comprobar que no haya solapes/cortes y que los menús/controles respeten anclajes y tamaños mínimos.
+
 ## Pruebas
 
 ```powershell
