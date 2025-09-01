@@ -445,7 +445,7 @@ namespace GestorContrasenas.UI
             // chkHibpAuto
             // 
             this.chkHibpAuto.AutoSize = true;
-            this.chkHibpAuto.Location = new System.Drawing.Point(12, 330);
+            this.chkHibpAuto.Location = new System.Drawing.Point(380, 330);
             this.chkHibpAuto.Name = "chkHibpAuto";
             this.chkHibpAuto.Size = new System.Drawing.Size(256, 19);
             this.chkHibpAuto.Text = "Comprobar comprometida automáticamente";
