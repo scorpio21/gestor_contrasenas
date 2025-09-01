@@ -1,6 +1,8 @@
 using System;
 using System.Windows.Forms;
 using DotNetEnv;
+using GestorContrasenas.Datos;
+using GestorContrasenas.Seguridad;
 
 namespace GestorContrasenas
 {
@@ -11,10 +13,27 @@ namespace GestorContrasenas
         {
             // Cargar variables de entorno desde .env si existe
             try { Env.Load(); } catch { /* opcional: ignorar si no hay .env */ }
+            // Asegurar esquema de base de datos si hay conexión configurada
+            try
+            {
+                var conn = Environment.GetEnvironmentVariable("GESTOR_DB_CONN");
+                if (!string.IsNullOrWhiteSpace(conn))
+                {
+                    Migraciones.AsegurarEsquema(conn);
+                }
+            }
+            catch { /* Evitar bloquear el arranque por esto; el repositorio volverá a intentar */ }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             try
             {
+                // Si hay sesión recordada, iniciamos directamente
+                var sesion = RecordarSesion.Cargar();
+                if (sesion is { } s)
+                {
+                    Application.Run(new UI.MainForm(s.UsuarioId, s.ClaveMaestra));
+                    return;
+                }
                 using (var login = new UI.LoginForm())
                 {
                     var result = login.ShowDialog();

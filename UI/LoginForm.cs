@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using GestorContrasenas.Servicios;
+using GestorContrasenas.Seguridad;
 
 namespace GestorContrasenas.UI
 {
@@ -65,6 +66,15 @@ namespace GestorContrasenas.UI
                 {
                     ClaveMaestra = resultado.ClaveMaestra;
                 }
+                // Guardar sesión si el usuario lo solicita
+                try
+                {
+                    if (chkRecordar?.Checked == true)
+                    {
+                        RecordarSesion.Guardar(UsuarioId, ClaveMaestra);
+                    }
+                }
+                catch { /* no bloquear el login por fallo de recordatorio */ }
                 DialogResult = DialogResult.OK;
                 Close();
             }

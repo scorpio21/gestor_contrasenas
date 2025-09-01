@@ -14,7 +14,7 @@ namespace GestorContrasenas.Datos
         {
             cadenaConexion = Environment.GetEnvironmentVariable("GESTOR_DB_CONN")
                 ?? throw new InvalidOperationException("Falta la variable de entorno GESTOR_DB_CONN con la cadena de conexión a MySQL.");
-            AsegurarEsquema();
+            Migraciones.AsegurarEsquema(cadenaConexion);
         }
 
         // Listar filtrado por usuario_id
@@ -38,64 +38,6 @@ namespace GestorContrasenas.Datos
             }
         }
 
-        private void AsegurarEsquema()
-        {
-            using var conn = new MySqlConnection(cadenaConexion);
-            conn.Open();
-            // Tabla de usuarios
-            var sqlUsuarios = @"CREATE TABLE IF NOT EXISTS usuarios (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                email VARCHAR(255) NOT NULL UNIQUE,
-                password_hash VARBINARY(64) NOT NULL,
-                password_salt VARBINARY(16) NOT NULL,
-                master_key_blob TEXT NULL,
-                creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-            using (var cmdU = new MySqlCommand(sqlUsuarios, conn))
-                cmdU.ExecuteNonQuery();
-
-            // Añadir master_key_blob si no existe (MySQL 8+)
-            try
-            {
-                using var cmdAdd = new MySqlCommand("ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS master_key_blob TEXT NULL;", conn);
-                cmdAdd.ExecuteNonQuery();
-            }
-            catch { }
-
-            // Tabla de entradas
-            var sqlEntradas = @"CREATE TABLE IF NOT EXISTS entradas (
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                servicio VARCHAR(255) NOT NULL,
-                usuario VARCHAR(255) NOT NULL,
-                secreto_cifrado TEXT NOT NULL,
-                creado_en TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;";
-            using (var cmdE = new MySqlCommand(sqlEntradas, conn))
-                cmdE.ExecuteNonQuery();
-
-            // Columna login_url si no existe
-            try
-            {
-                using var cmdAddUrl = new MySqlCommand("ALTER TABLE entradas ADD COLUMN IF NOT EXISTS login_url VARCHAR(500) NULL;", conn);
-                cmdAddUrl.ExecuteNonQuery();
-            }
-            catch { }
-
-            // Columna usuario_id si no existe (MySQL 8+)
-            var sqlAddUsuarioId = @"ALTER TABLE entradas ADD COLUMN IF NOT EXISTS usuario_id INT NULL;";
-            using (var cmdC = new MySqlCommand(sqlAddUsuarioId, conn))
-                cmdC.ExecuteNonQuery();
-
-            // FK si no existe (no hay IF NOT EXISTS para FK de forma estándar; intentamos y capturamos duplicado)
-            try
-            {
-                var sqlFk = @"ALTER TABLE entradas ADD CONSTRAINT fk_entradas_usuario
-                               FOREIGN KEY (usuario_id) REFERENCES usuarios(id) ON DELETE CASCADE;";
-                using var cmdFk = new MySqlCommand(sqlFk, conn);
-                cmdFk.ExecuteNonQuery();
-            }
-            catch { /* puede fallar si ya existe */ }
-        }
 
         public IEnumerable<EntradaContrasena> Listar()
         {

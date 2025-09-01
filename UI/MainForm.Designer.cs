@@ -42,6 +42,7 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.ToolStripMenuItem archivoToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportarComprometidasToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
         private System.Windows.Forms.Panel pnlFortaleza;
         private System.Windows.Forms.Panel pnlFortalezaValor;
         private System.Windows.Forms.CheckBox chkHibpAuto;
@@ -97,6 +98,7 @@ namespace GestorContrasenas.UI
             menuStrip1 = new MenuStrip();
             archivoToolStripMenuItem = new ToolStripMenuItem();
             exportarComprometidasToolStripMenuItem = new ToolStripMenuItem();
+            cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
             salirToolStripMenuItem = new ToolStripMenuItem();
             pnlFortaleza = new Panel();
             pnlFortalezaValor = new Panel();
@@ -410,34 +412,39 @@ namespace GestorContrasenas.UI
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(9, 3, 0, 3);
             menuStrip1.Size = new Size(1218, 35);
-            menuStrip1.TabIndex = 100;
-            menuStrip1.Text = "menuStrip1";
             // 
             // archivoToolStripMenuItem
             // 
-            archivoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exportarComprometidasToolStripMenuItem, salirToolStripMenuItem });
             archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            archivoToolStripMenuItem.Size = new Size(88, 29);
+            archivoToolStripMenuItem.Size = new Size(91, 29);
             archivoToolStripMenuItem.Text = "Archivo";
+            archivoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                exportarComprometidasToolStripMenuItem,
+                cerrarSesionToolStripMenuItem,
+                salirToolStripMenuItem
+            });
             // 
             // exportarComprometidasToolStripMenuItem
             // 
             exportarComprometidasToolStripMenuItem.Name = "exportarComprometidasToolStripMenuItem";
-            exportarComprometidasToolStripMenuItem.Size = new Size(362, 34);
+            exportarComprometidasToolStripMenuItem.Size = new Size(395, 34);
             exportarComprometidasToolStripMenuItem.Text = "Exportar comprometidas a CSV";
             exportarComprometidasToolStripMenuItem.Click += exportarComprometidasToolStripMenuItem_Click;
+            // 
+            // cerrarSesionToolStripMenuItem
+            // 
+            cerrarSesionToolStripMenuItem.Name = "cerrarSesionToolStripMenuItem";
+            cerrarSesionToolStripMenuItem.Size = new Size(395, 34);
+            cerrarSesionToolStripMenuItem.Text = "Cerrar sesión";
+            cerrarSesionToolStripMenuItem.Click += cerrarSesionToolStripMenuItem_Click;
             // 
             // salirToolStripMenuItem
             // 
             salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            salirToolStripMenuItem.Size = new Size(362, 34);
+            salirToolStripMenuItem.Size = new Size(395, 34);
             salirToolStripMenuItem.Text = "Salir";
             salirToolStripMenuItem.Click += salirToolStripMenuItem_Click;
-            // 
-            // pnlFortaleza
-            // 
-            pnlFortaleza.BackColor = Color.Gainsboro;
-            pnlFortaleza.Location = new Point(800, 678);
             pnlFortaleza.Margin = new Padding(4, 5, 4, 5);
             pnlFortaleza.Name = "pnlFortaleza";
             pnlFortaleza.Size = new Size(171, 20);

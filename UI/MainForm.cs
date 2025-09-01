@@ -8,6 +8,7 @@ using Microsoft.VisualBasic.FileIO; // Parser CSV
 using System.IO;
 using System.Threading.Tasks;
 using System.ComponentModel; // CancelEventArgs
+using GestorContrasenas.Seguridad;
 
 namespace GestorContrasenas.UI
 {
@@ -338,6 +339,19 @@ namespace GestorContrasenas.UI
         private void salirToolStripMenuItem_Click(object? sender, EventArgs e)
         {
             Close();
+        }
+
+        // Archivo > Cerrar sesión
+        private void cerrarSesionToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            try
+            {
+                RecordarSesion.Limpiar();
+            }
+            catch { /* ignorar errores al limpiar */ }
+            // Reiniciar para volver a Program.Main (mostrar LoginForm)
+            try { Application.Restart(); }
+            catch { Close(); }
         }
 
         // Archivo > Exportar comprometidas a CSV

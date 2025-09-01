@@ -11,6 +11,7 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.TextBox txtClave;
         private System.Windows.Forms.Button btnAcceder;
         private System.Windows.Forms.Button btnRegistrarse;
+        private System.Windows.Forms.CheckBox chkRecordar;
 
         protected override void Dispose(bool disposing)
         {
@@ -31,6 +32,7 @@ namespace GestorContrasenas.UI
             this.txtClave = new System.Windows.Forms.TextBox();
             this.btnAcceder = new System.Windows.Forms.Button();
             this.btnRegistrarse = new System.Windows.Forms.Button();
+            this.chkRecordar = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lblEmail
@@ -105,11 +107,22 @@ namespace GestorContrasenas.UI
             this.btnRegistrarse.UseVisualStyleBackColor = true;
             this.btnRegistrarse.Click += new System.EventHandler(this.btnRegistrarse_Click);
             // 
+            // chkRecordar
+            // 
+            this.chkRecordar.AutoSize = true;
+            this.chkRecordar.Location = new System.Drawing.Point(15, 112);
+            this.chkRecordar.Name = "chkRecordar";
+            this.chkRecordar.Size = new System.Drawing.Size(112, 19);
+            this.chkRecordar.TabIndex = 8;
+            this.chkRecordar.Text = "Recordar sesión";
+            this.chkRecordar.UseVisualStyleBackColor = true;
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(344, 168);
+            this.Controls.Add(this.chkRecordar);
             this.Controls.Add(this.btnRegistrarse);
             this.Controls.Add(this.btnAcceder);
             this.Controls.Add(this.txtClave);

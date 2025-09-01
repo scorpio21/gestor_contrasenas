@@ -76,6 +76,14 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 - `UI/` Formularios WinForms.
 - `scripts/` Scripts de ayuda.
 
+### Migraciones y validación de esquema (MySQL)
+
+- La app asegura y valida el esquema mínimo al inicio usando `Datos/Migraciones.cs`.
+- Puntos de invocación:
+  - `Program.cs`: intenta `Migraciones.AsegurarEsquema` si `GESTOR_DB_CONN` está configurada.
+  - `Datos/MySqlRepositorio.cs`: vuelve a asegurar el esquema en su constructor para entornos donde no pase por `Program.cs`.
+- El esquema base se corresponde con `usuarios` y `entradas` (columnas principales y FK), alineado con `Datos/crear_base_gestor.sql`.
+
 ## Cambios recientes (UI)
 
 - Alineación y anclajes para evitar solapes al redimensionar (`UI/MainForm.Designer.cs`):
@@ -158,6 +166,17 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 - Implementación:
   - Servicio: `Servicios/AuthService.cs` (`LoginYObtenerClave`, `ActualizarClaveMaestra`).
   - UI: `UI/LoginForm.cs` (invoca recuperación/creación) y `UI/ConfigurarClaveForm.*` (captura y confirmación de clave maestra).
+
+### Recordar sesión (UX)
+
+- En la pantalla de inicio hay un checkbox "Recordar sesión". Si se marca, al iniciar sesión se guarda (cifrada con DPAPI del usuario Windows) la sesión localmente.
+- En el próximo arranque, si existe una sesión guardada válida, la app entra directamente a `MainForm` sin pedir credenciales.
+- Cómo cerrar sesión y limpiar el recuerdo:
+  - Menú `Archivo > Cerrar sesión` en `MainForm` elimina el archivo de sesión y reinicia la aplicación para volver a `LoginForm`.
+- Implementación:
+  - Utilidad: `Seguridad/RecordarSesion.cs` (métodos `Guardar`, `Cargar`, `Limpiar`).
+  - UI: `UI/LoginForm.Designer.cs` (checkbox `chkRecordar`) y `UI/LoginForm.cs` (usa `RecordarSesion.Guardar` tras login exitoso).
+  - Inicio: `Program.cs` (si `RecordarSesion.Cargar()` retorna datos, abre `MainForm` directamente).
 
 ### Auto-lock e higiene de portapapeles (UI)
 
