@@ -15,6 +15,10 @@ Consulta las normas y convenciones de desarrollo en `docs/reglas.md`:
 - .NET SDK 8.0
 - MySQL (o servidor compatible)
 
+## Changelog
+
+- Ver historial de cambios en [`CHANGELOG.md`](CHANGELOG.md)
+
 ## Configuración
 
 1. Crear archivo `.env` en la raíz del proyecto con la cadena de conexión:
