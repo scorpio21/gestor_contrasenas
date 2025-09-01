@@ -76,6 +76,15 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
 - `UI/` Formularios WinForms.
 - `scripts/` Scripts de ayuda.
 
+## Cambios recientes (UI)
+
+- Alineación y anclajes para evitar solapes al redimensionar (`UI/MainForm.Designer.cs`):
+  - Controles de fortaleza (`lblFortaleza`, `pnlFortaleza`, `pnlFortalezaValor`) con Anchor = Top | Left.
+  - Bloque de búsqueda (`lblBuscar`, `txtBuscar`) anclados en Top | Left y reposicionados para no solapar el listado.
+  - Botones inferiores anclados en Top | Left.
+  - Espaciado horizontal uniforme en la fila de acciones: `Agregar`, `Eliminar`, `Copiar`, `Refrescar`, `Importar CSV`, `Exportar CSV`.
+  - Botones `Importar seguro` y `Exportar seguro` movidos a una fila inferior para evitar solape.
+
 ## Seguridad
 
 - No subas credenciales reales al repositorio.
@@ -89,6 +98,15 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - v1: PBKDF2-SHA256 (compatibilidad hacia atrás para secretos existentes).
   - v2: Argon2id (por defecto para nuevos cifrados). Requiere el paquete `Konscious.Security.Cryptography.Argon2`.
 - Los datos cifrados con v1 siguen descifrando correctamente; los nuevos usos generan v2 automáticamente.
+
+## Inicio de sesión (UX)
+
+- El inicio de sesión solicita solo email y contraseña.
+- La clave maestra se recupera automáticamente desde la base de datos (almacenada cifrada con la contraseña del usuario) al iniciar sesión.
+- Si el usuario aún no tiene clave maestra guardada, se muestra un formulario modal para configurarla y esta queda almacenada para futuras sesiones.
+- Implementación:
+  - Servicio: `Servicios/AuthService.cs` (`LoginYObtenerClave`, `ActualizarClaveMaestra`).
+  - UI: `UI/LoginForm.cs` (invoca recuperación/creación) y `UI/ConfigurarClaveForm.*` (captura y confirmación de clave maestra).
 
 ### Auto-lock e higiene de portapapeles (UI)
 
