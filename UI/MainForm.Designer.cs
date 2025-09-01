@@ -43,6 +43,9 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportarComprometidasToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem cerrarSesionToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem ayudaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem verAyudaToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem acercaDeToolStripMenuItem;
         private System.Windows.Forms.Panel pnlFortaleza;
         private System.Windows.Forms.Panel pnlFortalezaValor;
         private System.Windows.Forms.CheckBox chkHibpAuto;
@@ -100,6 +103,9 @@ namespace GestorContrasenas.UI
             exportarComprometidasToolStripMenuItem = new ToolStripMenuItem();
             cerrarSesionToolStripMenuItem = new ToolStripMenuItem();
             salirToolStripMenuItem = new ToolStripMenuItem();
+            ayudaToolStripMenuItem = new ToolStripMenuItem();
+            verAyudaToolStripMenuItem = new ToolStripMenuItem();
+            acercaDeToolStripMenuItem = new ToolStripMenuItem();
             pnlFortaleza = new Panel();
             pnlFortalezaValor = new Panel();
             chkHibpAuto = new CheckBox();
@@ -407,11 +413,13 @@ namespace GestorContrasenas.UI
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(24, 24);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem, ayudaToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Padding = new Padding(9, 3, 0, 3);
-            menuStrip1.Size = new Size(1218, 35);
+            menuStrip1.AutoSize = false;
+            menuStrip1.Size = new Size(1218, 36);
+            menuStrip1.Dock = DockStyle.Top;
             // 
             // archivoToolStripMenuItem
             // 
@@ -445,6 +453,32 @@ namespace GestorContrasenas.UI
             salirToolStripMenuItem.Size = new Size(395, 34);
             salirToolStripMenuItem.Text = "Salir";
             salirToolStripMenuItem.Click += salirToolStripMenuItem_Click;
+            // 
+            // ayudaToolStripMenuItem
+            // 
+            ayudaToolStripMenuItem.Name = "ayudaToolStripMenuItem";
+            ayudaToolStripMenuItem.Size = new Size(85, 29);
+            ayudaToolStripMenuItem.Text = "Ayuda";
+            ayudaToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[]
+            {
+                verAyudaToolStripMenuItem,
+                acercaDeToolStripMenuItem
+            });
+            // 
+            // verAyudaToolStripMenuItem
+            // 
+            verAyudaToolStripMenuItem.Name = "verAyudaToolStripMenuItem";
+            verAyudaToolStripMenuItem.Size = new Size(214, 34);
+            verAyudaToolStripMenuItem.Text = "Ver ayuda";
+            verAyudaToolStripMenuItem.ShortcutKeys = Keys.F1;
+            verAyudaToolStripMenuItem.Click += verAyudaToolStripMenuItem_Click;
+            // 
+            // acercaDeToolStripMenuItem
+            // 
+            acercaDeToolStripMenuItem.Name = "acercaDeToolStripMenuItem";
+            acercaDeToolStripMenuItem.Size = new Size(214, 34);
+            acercaDeToolStripMenuItem.Text = "Acerca de…";
+            acercaDeToolStripMenuItem.Click += acercaDeToolStripMenuItem_Click;
             pnlFortaleza.Margin = new Padding(4, 5, 4, 5);
             pnlFortaleza.Name = "pnlFortaleza";
             pnlFortaleza.Size = new Size(171, 20);
@@ -531,6 +565,8 @@ namespace GestorContrasenas.UI
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1218, 917);
+            // Agregar primero el menu para que reserve el espacio superior
+            Controls.Add(menuStrip1);
             Controls.Add(chkHibpAuto);
             Controls.Add(pnlFortalezaValor);
             Controls.Add(pnlFortaleza);
@@ -561,7 +597,6 @@ namespace GestorContrasenas.UI
             Controls.Add(txtServicio);
             Controls.Add(lblServicio);
             Controls.Add(lvEntradas);
-            Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Margin = new Padding(4, 5, 4, 5);
             MinimumSize = new Size(991, 863);
