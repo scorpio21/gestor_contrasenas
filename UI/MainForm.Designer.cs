@@ -60,501 +60,512 @@ namespace GestorContrasenas.UI
 
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.lvEntradas = new System.Windows.Forms.ListView();
-            this.colId = new System.Windows.Forms.ColumnHeader();
-            this.colServicio = new System.Windows.Forms.ColumnHeader();
-            this.colUsuario = new System.Windows.Forms.ColumnHeader();
-            this.colSecreto = new System.Windows.Forms.ColumnHeader();
-            this.colComprometida = new System.Windows.Forms.ColumnHeader();
-            this.colVer = new System.Windows.Forms.ColumnHeader();
-            this.txtServicio = new System.Windows.Forms.TextBox();
-            this.txtUsuario = new System.Windows.Forms.TextBox();
-            this.txtSecreto = new System.Windows.Forms.TextBox();
-            this.lblServicio = new System.Windows.Forms.Label();
-            this.lblUsuario = new System.Windows.Forms.Label();
-            this.lblSecreto = new System.Windows.Forms.Label();
-            this.btnAgregar = new System.Windows.Forms.Button();
-            this.btnEliminar = new System.Windows.Forms.Button();
-            this.btnCopiar = new System.Windows.Forms.Button();
-            this.btnRefrescar = new System.Windows.Forms.Button();
-            this.btnGuardar = new System.Windows.Forms.Button();
-            this.lblEstado = new System.Windows.Forms.Label();
-            this.btnVerSecreto = new System.Windows.Forms.Button();
-            this.btnGenerarSecreto = new System.Windows.Forms.Button();
-            this.lblLoginUrl = new System.Windows.Forms.Label();
-            this.txtLoginUrl = new System.Windows.Forms.TextBox();
-            this.btnAbrirSitio = new System.Windows.Forms.Button();
-            this.btnImportar = new System.Windows.Forms.Button();
-            this.btnExportar = new System.Windows.Forms.Button();
-            this.lblBuscar = new System.Windows.Forms.Label();
-            this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.autoLockTimer = new System.Windows.Forms.Timer(this.components);
-            this.clipboardTimer = new System.Windows.Forms.Timer(this.components);
-            this.revealTimer = new System.Windows.Forms.Timer(this.components);
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.archivoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportarComprometidasToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pnlFortaleza = new System.Windows.Forms.Panel();
-            this.pnlFortalezaValor = new System.Windows.Forms.Panel();
-            this.chkHibpAuto = new System.Windows.Forms.CheckBox();
-            this.contextMenuEntradas = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.abrirSitioCambiarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.archivoToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(684, 24);
-            this.menuStrip1.TabIndex = 100;
-            this.menuStrip1.Text = "menuStrip1";
-            // 
-            // archivoToolStripMenuItem
-            // 
-            this.archivoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exportarComprometidasToolStripMenuItem,
-            this.salirToolStripMenuItem});
-            this.archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
-            this.archivoToolStripMenuItem.Size = new System.Drawing.Size(60, 20);
-            this.archivoToolStripMenuItem.Text = "Archivo";
-            // 
-            // exportarComprometidasToolStripMenuItem
-            // 
-            this.exportarComprometidasToolStripMenuItem.Name = "exportarComprometidasToolStripMenuItem";
-            this.exportarComprometidasToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
-            this.exportarComprometidasToolStripMenuItem.Text = "Exportar comprometidas a CSV";
-            this.exportarComprometidasToolStripMenuItem.Click += new System.EventHandler(this.exportarComprometidasToolStripMenuItem_Click);
-            // 
-            // salirToolStripMenuItem
-            // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(238, 22);
-            this.salirToolStripMenuItem.Text = "Salir";
-            this.salirToolStripMenuItem.Click += new System.EventHandler(this.salirToolStripMenuItem_Click);
-            // 
-            // contextMenuEntradas
-            // 
-            this.contextMenuEntradas.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.abrirSitioCambiarToolStripMenuItem});
-            this.contextMenuEntradas.Name = "contextMenuEntradas";
-            this.contextMenuEntradas.Size = new System.Drawing.Size(268, 26);
-            this.contextMenuEntradas.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuEntradas_Opening);
-            // 
-            // abrirSitioCambiarToolStripMenuItem
-            // 
-            this.abrirSitioCambiarToolStripMenuItem.Name = "abrirSitioCambiarToolStripMenuItem";
-            this.abrirSitioCambiarToolStripMenuItem.Size = new System.Drawing.Size(267, 22);
-            this.abrirSitioCambiarToolStripMenuItem.Text = "Abrir sitio para cambiar contraseña";
-            this.abrirSitioCambiarToolStripMenuItem.Click += new System.EventHandler(this.abrirSitioCambiarToolStripMenuItem_Click);
+            components = new System.ComponentModel.Container();
+            lvEntradas = new ListView();
+            colId = new ColumnHeader();
+            colServicio = new ColumnHeader();
+            colUsuario = new ColumnHeader();
+            colSecreto = new ColumnHeader();
+            colComprometida = new ColumnHeader();
+            colVer = new ColumnHeader();
+            contextMenuEntradas = new ContextMenuStrip(components);
+            abrirSitioCambiarToolStripMenuItem = new ToolStripMenuItem();
+            txtServicio = new TextBox();
+            txtUsuario = new TextBox();
+            txtSecreto = new TextBox();
+            lblServicio = new Label();
+            lblUsuario = new Label();
+            lblSecreto = new Label();
+            btnAgregar = new Button();
+            btnEliminar = new Button();
+            btnCopiar = new Button();
+            btnRefrescar = new Button();
+            btnGuardar = new Button();
+            lblEstado = new Label();
+            btnVerSecreto = new Button();
+            btnGenerarSecreto = new Button();
+            lblLoginUrl = new Label();
+            txtLoginUrl = new TextBox();
+            btnAbrirSitio = new Button();
+            btnImportar = new Button();
+            btnExportar = new Button();
+            lblBuscar = new Label();
+            txtBuscar = new TextBox();
+            autoLockTimer = new System.Windows.Forms.Timer(components);
+            clipboardTimer = new System.Windows.Forms.Timer(components);
+            revealTimer = new System.Windows.Forms.Timer(components);
+            menuStrip1 = new MenuStrip();
+            archivoToolStripMenuItem = new ToolStripMenuItem();
+            exportarComprometidasToolStripMenuItem = new ToolStripMenuItem();
+            salirToolStripMenuItem = new ToolStripMenuItem();
+            pnlFortaleza = new Panel();
+            pnlFortalezaValor = new Panel();
+            chkHibpAuto = new CheckBox();
+            lblFortaleza = new Label();
+            prgFortaleza = new ProgressBar();
+            lblReutilizacion = new Label();
+            btnImportarSeguro = new Button();
+            btnExportarSeguro = new Button();
+            contextMenuEntradas.SuspendLayout();
+            menuStrip1.SuspendLayout();
+            SuspendLayout();
             // 
             // lvEntradas
             // 
-            this.lvEntradas.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvEntradas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.colId,
-            this.colServicio,
-            this.colUsuario,
-            this.colSecreto,
-            this.colComprometida,
-            this.colVer});
-            this.lvEntradas.FullRowSelect = true;
-            this.lvEntradas.GridLines = true;
-            this.lvEntradas.Location = new System.Drawing.Point(12, 27);
-            this.lvEntradas.MultiSelect = false;
-            this.lvEntradas.Name = "lvEntradas";
-            this.lvEntradas.Size = new System.Drawing.Size(660, 300);
-            this.lvEntradas.TabIndex = 0;
-            this.lvEntradas.UseCompatibleStateImageBehavior = false;
-            this.lvEntradas.View = System.Windows.Forms.View.Details;
-            this.lvEntradas.ContextMenuStrip = this.contextMenuEntradas;
-            this.lvEntradas.MouseClick += new System.Windows.Forms.MouseEventHandler(this.lvEntradas_MouseClick);
-            this.lvEntradas.SelectedIndexChanged += new System.EventHandler(this.lvEntradas_SelectedIndexChanged);
-            this.lvEntradas.Leave += new System.EventHandler(this.lvEntradas_Leave);
+            lvEntradas.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lvEntradas.Columns.AddRange(new ColumnHeader[] { colId, colServicio, colUsuario, colSecreto, colComprometida, colVer });
+            lvEntradas.ContextMenuStrip = contextMenuEntradas;
+            lvEntradas.FullRowSelect = true;
+            lvEntradas.GridLines = true;
+            lvEntradas.Location = new Point(17, 45);
+            lvEntradas.Margin = new Padding(4, 5, 4, 5);
+            lvEntradas.MultiSelect = false;
+            lvEntradas.Name = "lvEntradas";
+            lvEntradas.Size = new Size(1182, 497);
+            lvEntradas.TabIndex = 0;
+            lvEntradas.UseCompatibleStateImageBehavior = false;
+            lvEntradas.View = View.Details;
+            lvEntradas.SelectedIndexChanged += lvEntradas_SelectedIndexChanged;
+            lvEntradas.Leave += lvEntradas_Leave;
+            lvEntradas.MouseClick += lvEntradas_MouseClick;
             // 
             // colId
             // 
-            this.colId.Text = "ID";
-            this.colId.Width = 50;
+            colId.Text = "ID";
+            colId.Width = 50;
             // 
             // colServicio
             // 
-            this.colServicio.Text = "Servicio";
-            this.colServicio.Width = 180;
+            colServicio.Text = "Servicio";
+            colServicio.Width = 180;
             // 
             // colUsuario
             // 
-            this.colUsuario.Text = "Usuario";
-            this.colUsuario.Width = 180;
+            colUsuario.Text = "Usuario";
+            colUsuario.Width = 180;
             // 
             // colSecreto
             // 
-            this.colSecreto.Text = "Contraseña";
-            this.colSecreto.Width = 200;
+            colSecreto.Text = "Contraseña";
+            colSecreto.Width = 200;
             // 
             // colComprometida
             // 
-            this.colComprometida.Text = "Comprometida";
-            this.colComprometida.Width = 110;
+            colComprometida.Text = "Comprometida";
+            colComprometida.Width = 110;
             // 
             // colVer
             // 
-            this.colVer.Text = "";
-            this.colVer.Width = 40;
+            colVer.Text = "";
+            colVer.Width = 40;
             // 
-            // lblServicio
+            // contextMenuEntradas
             // 
-            this.lblServicio.AutoSize = true;
-            this.lblServicio.Location = new System.Drawing.Point(12, 360);
-            this.lblServicio.Name = "lblServicio";
-            this.lblServicio.Size = new System.Drawing.Size(50, 15);
-            this.lblServicio.TabIndex = 1;
-            this.lblServicio.Text = "Servicio";
+            contextMenuEntradas.ImageScalingSize = new Size(24, 24);
+            contextMenuEntradas.Items.AddRange(new ToolStripItem[] { abrirSitioCambiarToolStripMenuItem });
+            contextMenuEntradas.Name = "contextMenuEntradas";
+            contextMenuEntradas.Size = new Size(361, 36);
+            contextMenuEntradas.Opening += contextMenuEntradas_Opening;
+            // 
+            // abrirSitioCambiarToolStripMenuItem
+            // 
+            abrirSitioCambiarToolStripMenuItem.Name = "abrirSitioCambiarToolStripMenuItem";
+            abrirSitioCambiarToolStripMenuItem.Size = new Size(360, 32);
+            abrirSitioCambiarToolStripMenuItem.Text = "Abrir sitio para cambiar contraseña";
+            abrirSitioCambiarToolStripMenuItem.Click += abrirSitioCambiarToolStripMenuItem_Click;
             // 
             // txtServicio
             // 
-            this.txtServicio.Location = new System.Drawing.Point(12, 378);
-            this.txtServicio.Name = "txtServicio";
-            this.txtServicio.Size = new System.Drawing.Size(200, 23);
-            this.txtServicio.TabIndex = 2;
-            // 
-            // lblUsuario
-            // 
-            this.lblUsuario.AutoSize = true;
-            this.lblUsuario.Location = new System.Drawing.Point(222, 360);
-            this.lblUsuario.Name = "lblUsuario";
-            this.lblUsuario.Size = new System.Drawing.Size(47, 15);
-            this.lblUsuario.TabIndex = 3;
-            this.lblUsuario.Text = "Usuario";
+            txtServicio.Location = new Point(17, 630);
+            txtServicio.Margin = new Padding(4, 5, 4, 5);
+            txtServicio.Name = "txtServicio";
+            txtServicio.Size = new Size(284, 31);
+            txtServicio.TabIndex = 2;
             // 
             // txtUsuario
             // 
-            this.txtUsuario.Location = new System.Drawing.Point(222, 378);
-            this.txtUsuario.Name = "txtUsuario";
-            this.txtUsuario.Size = new System.Drawing.Size(200, 23);
-            this.txtUsuario.TabIndex = 4;
-            // 
-            // lblSecreto
-            // 
-            this.lblSecreto.AutoSize = true;
-            this.lblSecreto.Location = new System.Drawing.Point(432, 360);
-            this.lblSecreto.Name = "lblSecreto";
-            this.lblSecreto.Size = new System.Drawing.Size(69, 15);
-            this.lblSecreto.TabIndex = 5;
-            this.lblSecreto.Text = "Contraseña";
+            txtUsuario.Location = new Point(317, 630);
+            txtUsuario.Margin = new Padding(4, 5, 4, 5);
+            txtUsuario.Name = "txtUsuario";
+            txtUsuario.Size = new Size(284, 31);
+            txtUsuario.TabIndex = 4;
             // 
             // txtSecreto
             // 
-            this.txtSecreto.Location = new System.Drawing.Point(432, 378);
-            this.txtSecreto.Name = "txtSecreto";
-            this.txtSecreto.PasswordChar = '•';
-            this.txtSecreto.Size = new System.Drawing.Size(180, 23);
-            this.txtSecreto.TabIndex = 6;
-            this.txtSecreto.TextChanged += new System.EventHandler(this.txtSecreto_TextChanged);
+            txtSecreto.Location = new Point(617, 630);
+            txtSecreto.Margin = new Padding(4, 5, 4, 5);
+            txtSecreto.Name = "txtSecreto";
+            txtSecreto.PasswordChar = '•';
+            txtSecreto.Size = new Size(255, 31);
+            txtSecreto.TabIndex = 6;
+            txtSecreto.TextChanged += txtSecreto_TextChanged;
             // 
-            // btnVerSecreto
+            // lblServicio
             // 
-            this.btnVerSecreto.Location = new System.Drawing.Point(618, 378);
-            this.btnVerSecreto.Name = "btnVerSecreto";
-            this.btnVerSecreto.Size = new System.Drawing.Size(28, 23);
-            this.btnVerSecreto.TabIndex = 6;
-            this.btnVerSecreto.Text = "👁";
-            this.btnVerSecreto.UseVisualStyleBackColor = true;
-            this.btnVerSecreto.Click += new System.EventHandler(this.btnVerSecreto_Click);
+            lblServicio.AutoSize = true;
+            lblServicio.Location = new Point(17, 600);
+            lblServicio.Margin = new Padding(4, 0, 4, 0);
+            lblServicio.Name = "lblServicio";
+            lblServicio.Size = new Size(73, 25);
+            lblServicio.TabIndex = 1;
+            lblServicio.Text = "Servicio";
             // 
-            // btnGenerarSecreto
+            // lblUsuario
             // 
-            this.btnGenerarSecreto.Location = new System.Drawing.Point(648, 378);
-            this.btnGenerarSecreto.Name = "btnGenerarSecreto";
-            this.btnGenerarSecreto.Size = new System.Drawing.Size(28, 23);
-            this.btnGenerarSecreto.TabIndex = 6;
-            this.btnGenerarSecreto.Text = "🎲";
-            this.btnGenerarSecreto.UseVisualStyleBackColor = true;
-            this.btnGenerarSecreto.Click += new System.EventHandler(this.btnGenerarSecreto_Click);
+            lblUsuario.AutoSize = true;
+            lblUsuario.Location = new Point(317, 600);
+            lblUsuario.Margin = new Padding(4, 0, 4, 0);
+            lblUsuario.Name = "lblUsuario";
+            lblUsuario.Size = new Size(72, 25);
+            lblUsuario.TabIndex = 3;
+            lblUsuario.Text = "Usuario";
             // 
-            // lblLoginUrl
+            // lblSecreto
             // 
-            this.lblLoginUrl.AutoSize = true;
-            this.lblLoginUrl.Location = new System.Drawing.Point(12, 407);
-            this.lblLoginUrl.Name = "lblLoginUrl";
-            this.lblLoginUrl.Size = new System.Drawing.Size(63, 15);
-            this.lblLoginUrl.TabIndex = 12;
-            this.lblLoginUrl.Text = "URL login";
-            // 
-            // txtLoginUrl
-            // 
-            this.txtLoginUrl.Location = new System.Drawing.Point(12, 425);
-            this.txtLoginUrl.Name = "txtLoginUrl";
-            this.txtLoginUrl.Size = new System.Drawing.Size(440, 23);
-            this.txtLoginUrl.TabIndex = 13;
-            // 
-            // btnAbrirSitio
-            // 
-            this.btnAbrirSitio.Location = new System.Drawing.Point(458, 424);
-            this.btnAbrirSitio.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAbrirSitio.Name = "btnAbrirSitio";
-            this.btnAbrirSitio.Size = new System.Drawing.Size(100, 28);
-            this.btnAbrirSitio.TabIndex = 14;
-            this.btnAbrirSitio.Text = "Abrir sitio";
-            this.btnAbrirSitio.UseVisualStyleBackColor = true;
-            this.btnAbrirSitio.Click += new System.EventHandler(this.btnAbrirSitio_Click);
+            lblSecreto.AutoSize = true;
+            lblSecreto.Location = new Point(617, 600);
+            lblSecreto.Margin = new Padding(4, 0, 4, 0);
+            lblSecreto.Name = "lblSecreto";
+            lblSecreto.Size = new Size(101, 25);
+            lblSecreto.TabIndex = 5;
+            lblSecreto.Text = "Contraseña";
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(12, 460);
-            this.btnAgregar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnAgregar.Name = "btnAgregar";
-            this.btnAgregar.Size = new System.Drawing.Size(100, 28);
-            this.btnAgregar.TabIndex = 15;
-            this.btnAgregar.Text = "Agregar";
-            this.btnAgregar.UseVisualStyleBackColor = true;
-            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
-            // 
-            // btnGuardar
-            // 
-            this.btnGuardar.Location = new System.Drawing.Point(124, 460);
-            this.btnGuardar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(120, 28);
-            this.btnGuardar.TabIndex = 15;
-            this.btnGuardar.Text = "Guardar cambios";
-            this.btnGuardar.UseVisualStyleBackColor = true;
-            this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
+            btnAgregar.Location = new Point(16, 796);
+            btnAgregar.Margin = new Padding(4, 5, 4, 5);
+            btnAgregar.Name = "btnAgregar";
+            btnAgregar.Size = new Size(143, 47);
+            btnAgregar.TabIndex = 15;
+            btnAgregar.Text = "Agregar";
+            btnAgregar.UseVisualStyleBackColor = true;
+            btnAgregar.Click += btnAgregar_Click;
             // 
             // btnEliminar
             // 
-            this.btnEliminar.Location = new System.Drawing.Point(250, 460);
-            this.btnEliminar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(100, 28);
-            this.btnEliminar.TabIndex = 16;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = true;
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            btnEliminar.Location = new Point(356, 796);
+            btnEliminar.Margin = new Padding(4, 5, 4, 5);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(143, 47);
+            btnEliminar.TabIndex = 16;
+            btnEliminar.Text = "Eliminar";
+            btnEliminar.UseVisualStyleBackColor = true;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // btnCopiar
             // 
-            this.btnCopiar.Location = new System.Drawing.Point(362, 460);
-            this.btnCopiar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnCopiar.Name = "btnCopiar";
-            this.btnCopiar.Size = new System.Drawing.Size(100, 28);
-            this.btnCopiar.TabIndex = 17;
-            this.btnCopiar.Text = "Copiar";
-            this.btnCopiar.UseVisualStyleBackColor = true;
-            this.btnCopiar.Click += new System.EventHandler(this.btnCopiar_Click);
+            btnCopiar.Location = new Point(516, 796);
+            btnCopiar.Margin = new Padding(4, 5, 4, 5);
+            btnCopiar.Name = "btnCopiar";
+            btnCopiar.Size = new Size(143, 47);
+            btnCopiar.TabIndex = 17;
+            btnCopiar.Text = "Copiar";
+            btnCopiar.UseVisualStyleBackColor = true;
+            btnCopiar.Click += btnCopiar_Click;
             // 
             // btnRefrescar
             // 
-            this.btnRefrescar.Location = new System.Drawing.Point(474, 460);
-            this.btnRefrescar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnRefrescar.Name = "btnRefrescar";
-            this.btnRefrescar.Size = new System.Drawing.Size(100, 28);
-            this.btnRefrescar.TabIndex = 18;
-            this.btnRefrescar.Text = "Refrescar";
-            this.btnRefrescar.UseVisualStyleBackColor = true;
-            this.btnRefrescar.Click += new System.EventHandler(this.btnRefrescar_Click);
+            btnRefrescar.Location = new Point(667, 796);
+            btnRefrescar.Margin = new Padding(4, 5, 4, 5);
+            btnRefrescar.Name = "btnRefrescar";
+            btnRefrescar.Size = new Size(143, 47);
+            btnRefrescar.TabIndex = 18;
+            btnRefrescar.Text = "Refrescar";
+            btnRefrescar.UseVisualStyleBackColor = true;
+            btnRefrescar.Click += btnRefrescar_Click;
             // 
-            // btnImportar
+            // btnGuardar
             // 
-            this.btnImportar.Location = new System.Drawing.Point(460, 460);
-            this.btnImportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnImportar.Name = "btnImportar";
-            this.btnImportar.Size = new System.Drawing.Size(100, 28);
-            this.btnImportar.TabIndex = 19;
-            this.btnImportar.Text = "Importar CSV";
-            this.btnImportar.UseVisualStyleBackColor = true;
-            this.btnImportar.Click += new System.EventHandler(this.btnImportar_Click);
-            // 
-            // btnExportar
-            // 
-            this.btnExportar.Location = new System.Drawing.Point(572, 460);
-            this.btnExportar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExportar.Name = "btnExportar";
-            this.btnExportar.Size = new System.Drawing.Size(100, 28);
-            this.btnExportar.TabIndex = 20;
-            this.btnExportar.Text = "Exportar CSV";
-            this.btnExportar.UseVisualStyleBackColor = true;
-            this.btnExportar.Click += new System.EventHandler(this.btnExportar_Click);
-            // 
-            // lblBuscar
-            // 
-            this.lblBuscar = new System.Windows.Forms.Label();
-            this.lblBuscar.AutoSize = true;
-            this.lblBuscar.Location = new System.Drawing.Point(12, 333);
-            this.lblBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblBuscar.Name = "lblBuscar";
-            this.lblBuscar.Size = new System.Drawing.Size(44, 15);
-            this.lblBuscar.TabIndex = 26;
-            this.lblBuscar.Text = "Buscar";
-            // 
-            // txtBuscar
-            // 
-            this.txtBuscar = new System.Windows.Forms.TextBox();
-            this.txtBuscar.Location = new System.Drawing.Point(62, 330);
-            this.txtBuscar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtBuscar.Name = "txtBuscar";
-            this.txtBuscar.Size = new System.Drawing.Size(300, 23);
-            this.txtBuscar.TabIndex = 27;
-            this.txtBuscar.TextChanged += new System.EventHandler(this.txtBuscar_TextChanged);
-            // 
-            // lblFortaleza
-            // 
-            this.lblFortaleza = new System.Windows.Forms.Label();
-            this.lblFortaleza.AutoSize = true;
-            this.lblFortaleza.Location = new System.Drawing.Point(432, 402);
-            this.lblFortaleza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblFortaleza.Name = "lblFortaleza";
-            this.lblFortaleza.Size = new System.Drawing.Size(105, 15);
-            this.lblFortaleza.TabIndex = 21;
-            this.lblFortaleza.Text = "Fortaleza: (N/A)";
-            // 
-            // prgFortaleza
-            // 
-            this.prgFortaleza = new System.Windows.Forms.ProgressBar();
-            this.prgFortaleza.Location = new System.Drawing.Point(432, 402);
-            this.prgFortaleza.Maximum = 4;
-            this.prgFortaleza.Name = "prgFortaleza";
-            this.prgFortaleza.Size = new System.Drawing.Size(120, 20);
-            this.prgFortaleza.Step = 1;
-            this.prgFortaleza.TabIndex = 22;
-            this.prgFortaleza.Visible = false;
-            // 
-            // pnlFortaleza
-            // 
-            this.pnlFortaleza.Location = new System.Drawing.Point(560, 402);
-            this.pnlFortaleza.Name = "pnlFortaleza";
-            this.pnlFortaleza.Size = new System.Drawing.Size(120, 12);
-            this.pnlFortaleza.BackColor = System.Drawing.Color.Gainsboro;
-            this.pnlFortaleza.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.pnlFortaleza.TabIndex = 26;
-            // 
-            // pnlFortalezaValor
-            // 
-            this.pnlFortalezaValor.Location = new System.Drawing.Point(560, 402);
-            this.pnlFortalezaValor.Name = "pnlFortalezaValor";
-            this.pnlFortalezaValor.Size = new System.Drawing.Size(0, 12);
-            this.pnlFortalezaValor.BackColor = System.Drawing.Color.Red;
-            this.pnlFortalezaValor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.pnlFortalezaValor.TabIndex = 27;
-            // 
-            // chkHibpAuto
-            // 
-            this.chkHibpAuto.AutoSize = true;
-            this.chkHibpAuto.Location = new System.Drawing.Point(380, 330);
-            this.chkHibpAuto.Name = "chkHibpAuto";
-            this.chkHibpAuto.Size = new System.Drawing.Size(256, 19);
-            this.chkHibpAuto.Text = "Comprobar comprometida automáticamente";
-            this.chkHibpAuto.Checked = true;
-            this.chkHibpAuto.TabIndex = 28;
-            this.chkHibpAuto.UseVisualStyleBackColor = true;
-            this.chkHibpAuto.CheckedChanged += new System.EventHandler(this.chkHibpAuto_CheckedChanged);
-            // 
-            // lblReutilizacion
-            // 
-            this.lblReutilizacion = new System.Windows.Forms.Label();
-            this.lblReutilizacion.AutoSize = true;
-            this.lblReutilizacion.ForeColor = System.Drawing.Color.DarkRed;
-            this.lblReutilizacion.Location = new System.Drawing.Point(12, 472);
-            this.lblReutilizacion.Name = "lblReutilizacion";
-            this.lblReutilizacion.Size = new System.Drawing.Size(0, 15);
-            this.lblReutilizacion.TabIndex = 23;
-            // 
-            // btnImportarSeguro
-            // 
-            this.btnImportarSeguro = new System.Windows.Forms.Button();
-            this.btnImportarSeguro.Location = new System.Drawing.Point(12, 494);
-            this.btnImportarSeguro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnImportarSeguro.Name = "btnImportarSeguro";
-            this.btnImportarSeguro.Size = new System.Drawing.Size(140, 28);
-            this.btnImportarSeguro.TabIndex = 24;
-            this.btnImportarSeguro.Text = "Importar seguro";
-            this.btnImportarSeguro.UseVisualStyleBackColor = true;
-            this.btnImportarSeguro.Click += new System.EventHandler(this.btnImportarSeguro_Click);
-            // 
-            // btnExportarSeguro
-            // 
-            this.btnExportarSeguro = new System.Windows.Forms.Button();
-            this.btnExportarSeguro.Location = new System.Drawing.Point(164, 494);
-            this.btnExportarSeguro.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
-            this.btnExportarSeguro.Name = "btnExportarSeguro";
-            this.btnExportarSeguro.Size = new System.Drawing.Size(140, 28);
-            this.btnExportarSeguro.TabIndex = 25;
-            this.btnExportarSeguro.Text = "Exportar seguro";
-            this.btnExportarSeguro.UseVisualStyleBackColor = true;
-            this.btnExportarSeguro.Click += new System.EventHandler(this.btnExportarSeguro_Click);
+            btnGuardar.Location = new Point(176, 796);
+            btnGuardar.Margin = new Padding(4, 5, 4, 5);
+            btnGuardar.Name = "btnGuardar";
+            btnGuardar.Size = new Size(171, 47);
+            btnGuardar.TabIndex = 15;
+            btnGuardar.Text = "Guardar cambios";
+            btnGuardar.UseVisualStyleBackColor = true;
+            btnGuardar.Click += btnGuardar_Click;
             // 
             // lblEstado
             // 
-            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblEstado.AutoSize = true;
-            this.lblEstado.Location = new System.Drawing.Point(12, 515);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Size = new System.Drawing.Size(0, 15);
-            this.lblEstado.TabIndex = 11;
+            lblEstado.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            lblEstado.AutoSize = true;
+            lblEstado.Location = new Point(17, 858);
+            lblEstado.Margin = new Padding(4, 0, 4, 0);
+            lblEstado.Name = "lblEstado";
+            lblEstado.Size = new Size(0, 25);
+            lblEstado.TabIndex = 11;
+            // 
+            // btnVerSecreto
+            // 
+            btnVerSecreto.Location = new Point(883, 630);
+            btnVerSecreto.Margin = new Padding(4, 5, 4, 5);
+            btnVerSecreto.Name = "btnVerSecreto";
+            btnVerSecreto.Size = new Size(40, 38);
+            btnVerSecreto.TabIndex = 6;
+            btnVerSecreto.Text = "👁";
+            btnVerSecreto.UseVisualStyleBackColor = true;
+            btnVerSecreto.Click += btnVerSecreto_Click;
+            // 
+            // btnGenerarSecreto
+            // 
+            btnGenerarSecreto.Location = new Point(926, 630);
+            btnGenerarSecreto.Margin = new Padding(4, 5, 4, 5);
+            btnGenerarSecreto.Name = "btnGenerarSecreto";
+            btnGenerarSecreto.Size = new Size(40, 38);
+            btnGenerarSecreto.TabIndex = 6;
+            btnGenerarSecreto.Text = "🎲";
+            btnGenerarSecreto.UseVisualStyleBackColor = true;
+            btnGenerarSecreto.Click += btnGenerarSecreto_Click;
+            // 
+            // lblLoginUrl
+            // 
+            lblLoginUrl.AutoSize = true;
+            lblLoginUrl.Location = new Point(17, 712);
+            lblLoginUrl.Margin = new Padding(4, 0, 4, 0);
+            lblLoginUrl.Name = "lblLoginUrl";
+            lblLoginUrl.Size = new Size(88, 25);
+            lblLoginUrl.TabIndex = 12;
+            lblLoginUrl.Text = "URL login";
+            // 
+            // txtLoginUrl
+            // 
+            txtLoginUrl.Location = new Point(17, 742);
+            txtLoginUrl.Margin = new Padding(4, 5, 4, 5);
+            txtLoginUrl.Name = "txtLoginUrl";
+            txtLoginUrl.Size = new Size(627, 31);
+            txtLoginUrl.TabIndex = 13;
+            // 
+            // btnAbrirSitio
+            // 
+            btnAbrirSitio.Location = new Point(654, 741);
+            btnAbrirSitio.Margin = new Padding(4, 5, 4, 5);
+            btnAbrirSitio.Name = "btnAbrirSitio";
+            btnAbrirSitio.Size = new Size(143, 47);
+            btnAbrirSitio.TabIndex = 14;
+            btnAbrirSitio.Text = "Abrir sitio";
+            btnAbrirSitio.UseVisualStyleBackColor = true;
+            btnAbrirSitio.Click += btnAbrirSitio_Click;
+            // 
+            // btnImportar
+            // 
+            btnImportar.Location = new Point(967, 796);
+            btnImportar.Margin = new Padding(4, 5, 4, 5);
+            btnImportar.Name = "btnImportar";
+            btnImportar.Size = new Size(143, 47);
+            btnImportar.TabIndex = 19;
+            btnImportar.Text = "Importar CSV";
+            btnImportar.UseVisualStyleBackColor = true;
+            btnImportar.Click += btnImportar_Click;
+            // 
+            // btnExportar
+            // 
+            btnExportar.Location = new Point(816, 796);
+            btnExportar.Margin = new Padding(4, 5, 4, 5);
+            btnExportar.Name = "btnExportar";
+            btnExportar.Size = new Size(143, 47);
+            btnExportar.TabIndex = 20;
+            btnExportar.Text = "Exportar CSV";
+            btnExportar.UseVisualStyleBackColor = true;
+            btnExportar.Click += btnExportar_Click;
+            // 
+            // lblBuscar
+            // 
+            lblBuscar.AutoSize = true;
+            lblBuscar.Location = new Point(17, 555);
+            lblBuscar.Margin = new Padding(4, 0, 4, 0);
+            lblBuscar.Name = "lblBuscar";
+            lblBuscar.Size = new Size(63, 25);
+            lblBuscar.TabIndex = 26;
+            lblBuscar.Text = "Buscar";
+            // 
+            // txtBuscar
+            // 
+            txtBuscar.Location = new Point(89, 550);
+            txtBuscar.Margin = new Padding(4, 5, 4, 5);
+            txtBuscar.Name = "txtBuscar";
+            txtBuscar.Size = new Size(427, 31);
+            txtBuscar.TabIndex = 27;
+            txtBuscar.TextChanged += txtBuscar_TextChanged;
             // 
             // autoLockTimer
             // 
-            this.autoLockTimer.Interval = 300000; // 5 minutos
-            this.autoLockTimer.Tick += new System.EventHandler(this.autoLockTimer_Tick);
+            autoLockTimer.Interval = 300000;
+            autoLockTimer.Tick += autoLockTimer_Tick;
             // 
             // clipboardTimer
             // 
-            this.clipboardTimer.Interval = 20000; // 20 segundos
-            this.clipboardTimer.Tick += new System.EventHandler(this.clipboardTimer_Tick);
+            clipboardTimer.Interval = 20000;
+            clipboardTimer.Tick += clipboardTimer_Tick;
             // 
             // revealTimer
             // 
-            this.revealTimer.Interval = 8000; // 8 segundos visible
-            this.revealTimer.Tick += new System.EventHandler(this.revealTimer_Tick);
+            revealTimer.Interval = 8000;
+            revealTimer.Tick += revealTimer_Tick;
+            // 
+            // menuStrip1
+            // 
+            menuStrip1.ImageScalingSize = new Size(24, 24);
+            menuStrip1.Items.AddRange(new ToolStripItem[] { archivoToolStripMenuItem });
+            menuStrip1.Location = new Point(0, 0);
+            menuStrip1.Name = "menuStrip1";
+            menuStrip1.Padding = new Padding(9, 3, 0, 3);
+            menuStrip1.Size = new Size(1218, 35);
+            menuStrip1.TabIndex = 100;
+            menuStrip1.Text = "menuStrip1";
+            // 
+            // archivoToolStripMenuItem
+            // 
+            archivoToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { exportarComprometidasToolStripMenuItem, salirToolStripMenuItem });
+            archivoToolStripMenuItem.Name = "archivoToolStripMenuItem";
+            archivoToolStripMenuItem.Size = new Size(88, 29);
+            archivoToolStripMenuItem.Text = "Archivo";
+            // 
+            // exportarComprometidasToolStripMenuItem
+            // 
+            exportarComprometidasToolStripMenuItem.Name = "exportarComprometidasToolStripMenuItem";
+            exportarComprometidasToolStripMenuItem.Size = new Size(362, 34);
+            exportarComprometidasToolStripMenuItem.Text = "Exportar comprometidas a CSV";
+            exportarComprometidasToolStripMenuItem.Click += exportarComprometidasToolStripMenuItem_Click;
+            // 
+            // salirToolStripMenuItem
+            // 
+            salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            salirToolStripMenuItem.Size = new Size(362, 34);
+            salirToolStripMenuItem.Text = "Salir";
+            salirToolStripMenuItem.Click += salirToolStripMenuItem_Click;
+            // 
+            // pnlFortaleza
+            // 
+            pnlFortaleza.BackColor = Color.Gainsboro;
+            pnlFortaleza.Location = new Point(800, 678);
+            pnlFortaleza.Margin = new Padding(4, 5, 4, 5);
+            pnlFortaleza.Name = "pnlFortaleza";
+            pnlFortaleza.Size = new Size(171, 20);
+            pnlFortaleza.TabIndex = 26;
+            // 
+            // pnlFortalezaValor
+            // 
+            pnlFortalezaValor.BackColor = Color.Red;
+            pnlFortalezaValor.Location = new Point(800, 670);
+            pnlFortalezaValor.Margin = new Padding(4, 5, 4, 5);
+            pnlFortalezaValor.Name = "pnlFortalezaValor";
+            pnlFortalezaValor.Size = new Size(0, 20);
+            pnlFortalezaValor.TabIndex = 27;
+            // 
+            // chkHibpAuto
+            // 
+            chkHibpAuto.AutoSize = true;
+            chkHibpAuto.Checked = true;
+            chkHibpAuto.CheckState = CheckState.Checked;
+            chkHibpAuto.Location = new Point(543, 550);
+            chkHibpAuto.Margin = new Padding(4, 5, 4, 5);
+            chkHibpAuto.Name = "chkHibpAuto";
+            chkHibpAuto.Size = new Size(396, 29);
+            chkHibpAuto.TabIndex = 28;
+            chkHibpAuto.Text = "Comprobar comprometida automáticamente";
+            chkHibpAuto.UseVisualStyleBackColor = true;
+            chkHibpAuto.CheckedChanged += chkHibpAuto_CheckedChanged;
+            // 
+            // lblFortaleza
+            // 
+            lblFortaleza.AutoSize = true;
+            lblFortaleza.Location = new Point(617, 670);
+            lblFortaleza.Margin = new Padding(4, 0, 4, 0);
+            lblFortaleza.Name = "lblFortaleza";
+            lblFortaleza.Size = new Size(134, 25);
+            lblFortaleza.TabIndex = 21;
+            lblFortaleza.Text = "Fortaleza: (N/A)";
+            // 
+            // prgFortaleza
+            // 
+            prgFortaleza.Location = new Point(617, 670);
+            prgFortaleza.Margin = new Padding(4, 5, 4, 5);
+            prgFortaleza.Maximum = 4;
+            prgFortaleza.Name = "prgFortaleza";
+            prgFortaleza.Size = new Size(171, 33);
+            prgFortaleza.Step = 1;
+            prgFortaleza.TabIndex = 22;
+            prgFortaleza.Visible = false;
+            // 
+            // lblReutilizacion
+            // 
+            lblReutilizacion.AutoSize = true;
+            lblReutilizacion.ForeColor = Color.DarkRed;
+            lblReutilizacion.Location = new Point(17, 787);
+            lblReutilizacion.Margin = new Padding(4, 0, 4, 0);
+            lblReutilizacion.Name = "lblReutilizacion";
+            lblReutilizacion.Size = new Size(0, 25);
+            lblReutilizacion.TabIndex = 23;
+            // 
+            // btnImportarSeguro
+            // 
+            btnImportarSeguro.Location = new Point(16, 852);
+            btnImportarSeguro.Margin = new Padding(4, 5, 4, 5);
+            btnImportarSeguro.Name = "btnImportarSeguro";
+            btnImportarSeguro.Size = new Size(200, 47);
+            btnImportarSeguro.TabIndex = 24;
+            btnImportarSeguro.Text = "Importar seguro";
+            btnImportarSeguro.UseVisualStyleBackColor = true;
+            btnImportarSeguro.Click += btnImportarSeguro_Click;
+            // 
+            // btnExportarSeguro
+            // 
+            btnExportarSeguro.Location = new Point(233, 852);
+            btnExportarSeguro.Margin = new Padding(4, 5, 4, 5);
+            btnExportarSeguro.Name = "btnExportarSeguro";
+            btnExportarSeguro.Size = new Size(200, 47);
+            btnExportarSeguro.TabIndex = 25;
+            btnExportarSeguro.Text = "Exportar seguro";
+            btnExportarSeguro.UseVisualStyleBackColor = true;
+            btnExportarSeguro.Click += btnExportarSeguro_Click;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 550);
-            this.Controls.Add(this.chkHibpAuto);
-            this.Controls.Add(this.pnlFortalezaValor);
-            this.Controls.Add(this.pnlFortaleza);
-            this.Controls.Add(this.btnExportarSeguro);
-            this.Controls.Add(this.btnImportarSeguro);
-            this.Controls.Add(this.lblReutilizacion);
-            this.Controls.Add(this.prgFortaleza);
-            this.Controls.Add(this.lblFortaleza);
-            this.Controls.Add(this.txtBuscar);
-            this.Controls.Add(this.lblBuscar);
-            this.Controls.Add(this.btnExportar);
-            this.Controls.Add(this.btnImportar);
-            this.Controls.Add(this.btnAbrirSitio);
-            this.Controls.Add(this.txtLoginUrl);
-            this.Controls.Add(this.lblLoginUrl);
-            this.Controls.Add(this.btnGenerarSecreto);
-            this.Controls.Add(this.btnVerSecreto);
-            this.Controls.Add(this.lblEstado);
-            this.Controls.Add(this.btnRefrescar);
-            this.Controls.Add(this.btnCopiar);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnGuardar);
-            this.Controls.Add(this.btnAgregar);
-            this.Controls.Add(this.txtSecreto);
-            this.Controls.Add(this.lblSecreto);
-            this.Controls.Add(this.txtUsuario);
-            this.Controls.Add(this.lblUsuario);
-            this.Controls.Add(this.txtServicio);
-            this.Controls.Add(this.lblServicio);
-            this.Controls.Add(this.lvEntradas);
-            this.Controls.Add(this.menuStrip1);
-            this.MinimumSize = new System.Drawing.Size(700, 540);
-            this.Name = "MainForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Gestor de Contraseñas";
-            this.MainMenuStrip = this.menuStrip1;
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1218, 917);
+            Controls.Add(chkHibpAuto);
+            Controls.Add(pnlFortalezaValor);
+            Controls.Add(pnlFortaleza);
+            Controls.Add(btnExportarSeguro);
+            Controls.Add(btnImportarSeguro);
+            Controls.Add(lblReutilizacion);
+            Controls.Add(prgFortaleza);
+            Controls.Add(lblFortaleza);
+            Controls.Add(txtBuscar);
+            Controls.Add(lblBuscar);
+            Controls.Add(btnExportar);
+            Controls.Add(btnImportar);
+            Controls.Add(btnAbrirSitio);
+            Controls.Add(txtLoginUrl);
+            Controls.Add(lblLoginUrl);
+            Controls.Add(btnGenerarSecreto);
+            Controls.Add(btnVerSecreto);
+            Controls.Add(lblEstado);
+            Controls.Add(btnRefrescar);
+            Controls.Add(btnCopiar);
+            Controls.Add(btnEliminar);
+            Controls.Add(btnGuardar);
+            Controls.Add(btnAgregar);
+            Controls.Add(txtSecreto);
+            Controls.Add(lblSecreto);
+            Controls.Add(txtUsuario);
+            Controls.Add(lblUsuario);
+            Controls.Add(txtServicio);
+            Controls.Add(lblServicio);
+            Controls.Add(lvEntradas);
+            Controls.Add(menuStrip1);
+            MainMenuStrip = menuStrip1;
+            Margin = new Padding(4, 5, 4, 5);
+            MinimumSize = new Size(991, 863);
+            Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Gestor de Contraseñas";
+            contextMenuEntradas.ResumeLayout(false);
+            menuStrip1.ResumeLayout(false);
+            menuStrip1.PerformLayout();
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }
