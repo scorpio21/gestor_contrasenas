@@ -85,6 +85,10 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - Espaciado horizontal uniforme en la fila de acciones: `Agregar`, `Eliminar`, `Copiar`, `Refrescar`, `Importar CSV`, `Exportar CSV`.
   - Botones `Importar seguro` y `Exportar seguro` movidos a una fila inferior para evitar solape.
 
+- Corrección de warning en `UI/GeneradorForm.*`:
+  - Se inicializó el checkbox `chkaz` (rango "a-z") en `UI/GeneradorForm.Designer.cs` y se agregó al tab de contraseña.
+  - Esto elimina el aviso de campo no asignado y habilita la opción de minúsculas en el generador.
+
 ### Verificación automática de contraseñas comprometidas (UI/Servicios)
 
 - Nueva columna `Comprometida` en el listado principal que indica si la contraseña aparece en filtraciones públicas (verde "No", rojo "Sí (conteo)").

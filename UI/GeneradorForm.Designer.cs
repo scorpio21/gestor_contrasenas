@@ -81,7 +81,7 @@ namespace GestorContrasenas.UI
             // btnCopiar
             // 
             btnCopiar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnCopiar.Location = new Point(589, 20);
+            btnCopiar.Location = new Point(580, 52);
             btnCopiar.Margin = new Padding(4, 5, 4, 5);
             btnCopiar.Name = "btnCopiar";
             btnCopiar.Size = new Size(86, 38);
@@ -159,8 +159,8 @@ namespace GestorContrasenas.UI
             chkaz.Location = new Point(120, 91);
             chkaz.Margin = new Padding(4, 5, 4, 5);
             chkaz.Name = "chkaz";
-            chkaz.Size = new Size(65, 29);
-            chkaz.TabIndex = 2;
+            chkaz.Size = new Size(66, 29);
+            chkaz.TabIndex = 3;
             chkaz.Text = "a-z";
             // 
             // chk09
