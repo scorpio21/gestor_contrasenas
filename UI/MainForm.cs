@@ -1,6 +1,7 @@
 using System;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Drawing;
 using GestorContrasenas.Servicios;
 using GestorContrasenas.Dominio;
 using Microsoft.VisualBasic.FileIO; // Parser CSV
@@ -155,8 +156,44 @@ namespace GestorContrasenas.UI
             {
                 var texto = txtSecreto.Text ?? string.Empty;
                 var (punt, desc) = servicio.CalcularFortaleza(texto);
+                // ProgressBar estándar oculto; mantener por compatibilidad
                 prgFortaleza.Value = Math.Max(0, Math.Min(prgFortaleza.Maximum, punt));
                 lblFortaleza.Text = $"Fortaleza: {desc}";
+
+                // Barra personalizada (paneles)
+                int nivel = Math.Max(0, Math.Min(4, punt));
+                int anchoMax = pnlFortaleza.Width;
+                int ancho = nivel == 0 ? Math.Max(8, (int)Math.Round(anchoMax * 0.10)) : (int)Math.Round(anchoMax * (nivel / 4.0));
+                if (string.IsNullOrEmpty(texto))
+                {
+                    ancho = 0;
+                }
+                pnlFortalezaValor.Width = Math.Min(Math.Max(0, ancho), anchoMax);
+                pnlFortalezaValor.Height = pnlFortaleza.Height;
+                pnlFortalezaValor.Left = pnlFortaleza.Left;
+                pnlFortalezaValor.Top = pnlFortaleza.Top;
+
+                // Colores por nivel (0=Muy débil, 1=Débil, 2=Media, 3=Fuerte, 4=Muy fuerte)
+                Color color = Color.Red;
+                switch (nivel)
+                {
+                    case 0:
+                        color = Color.Red; // Muy débil
+                        break;
+                    case 1:
+                        color = Color.Orange; // Débil
+                        break;
+                    case 2:
+                        color = Color.Goldenrod; // Media
+                        break;
+                    case 3:
+                        color = Color.YellowGreen; // Fuerte
+                        break;
+                    case 4:
+                        color = Color.Green; // Muy fuerte
+                        break;
+                }
+                pnlFortalezaValor.BackColor = color;
 
                 // Reutilización (solo si hay algo escrito)
                 if (!string.IsNullOrEmpty(texto))
@@ -174,7 +211,14 @@ namespace GestorContrasenas.UI
                 // En caso de error, no bloquear la UI
                 lblFortaleza.Text = "Fortaleza: (N/A)";
                 lblReutilizacion.Text = string.Empty;
+                pnlFortalezaValor.Width = 0;
             }
+        }
+
+        // Archivo > Salir
+        private void salirToolStripMenuItem_Click(object? sender, EventArgs e)
+        {
+            Close();
         }
 
         private void txtSecreto_TextChanged(object? sender, EventArgs e)
@@ -323,10 +367,28 @@ namespace GestorContrasenas.UI
                 {
                     try
                     {
-                        var secreto = servicio.ObtenerSecretoDescifrado(entrada, claveMaestra);
-                        if (!string.IsNullOrEmpty(secreto))
+                        // Alternar visibilidad en la columna 3
+                        var actual = info.Item.SubItems[3].Text;
+                        bool oculto = actual == "••••••••";
+                        if (oculto)
                         {
-                            MessageBox.Show(this, $"Contraseña: {secreto}", "Ver contraseña", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            var secreto = servicio.ObtenerSecretoDescifrado(entrada, claveMaestra);
+                            if (!string.IsNullOrEmpty(secreto))
+                            {
+                                info.Item.SubItems[3].Text = secreto;
+                                // iniciar temporizador de auto-ocultado
+                                revealTimer.Stop();
+                                revealTimer.Start();
+                            }
+                        }
+                        else
+                        {
+                            info.Item.SubItems[3].Text = "••••••••";
+                            // si no quedan visibles, detener temporizador
+                            if (!ExisteAlgunaVisible())
+                            {
+                                revealTimer.Stop();
+                            }
                         }
                     }
                     catch (Exception ex)
@@ -335,6 +397,50 @@ namespace GestorContrasenas.UI
                     }
                 }
             }
+        }
+
+        private bool ExisteAlgunaVisible()
+        {
+            foreach (ListViewItem it in lvEntradas.Items)
+            {
+                if (it.SubItems.Count > 3 && it.SubItems[3].Text != "••••••••") return true;
+            }
+            return false;
+        }
+
+        private void OcultarContrasenasVisibles()
+        {
+            foreach (ListViewItem it in lvEntradas.Items)
+            {
+                if (it.SubItems.Count > 3 && it.SubItems[3].Text != "••••••••")
+                {
+                    it.SubItems[3].Text = "••••••••";
+                }
+            }
+        }
+
+        private void revealTimer_Tick(object? sender, EventArgs e)
+        {
+            try
+            {
+                OcultarContrasenasVisibles();
+            }
+            finally
+            {
+                revealTimer.Stop();
+            }
+        }
+
+        private void lvEntradas_SelectedIndexChanged(object? sender, EventArgs e)
+        {
+            OcultarContrasenasVisibles();
+            revealTimer.Stop();
+        }
+
+        private void lvEntradas_Leave(object? sender, EventArgs e)
+        {
+            OcultarContrasenasVisibles();
+            revealTimer.Stop();
         }
 
         private void btnExportar_Click(object? sender, EventArgs e)

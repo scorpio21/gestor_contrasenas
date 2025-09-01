@@ -67,13 +67,14 @@ namespace GestorContrasenas.UI
             this.txtPassword.TabIndex = 3;
             // 
             // lblClave
-            // 
+            //
             this.lblClave.AutoSize = true;
             this.lblClave.Location = new System.Drawing.Point(12, 115);
             this.lblClave.Name = "lblClave";
             this.lblClave.Size = new System.Drawing.Size(91, 15);
             this.lblClave.TabIndex = 4;
             this.lblClave.Text = "Clave maestra";
+            this.lblClave.Visible = false;
             // 
             // txtClave
             // 
@@ -82,10 +83,11 @@ namespace GestorContrasenas.UI
             this.txtClave.PasswordChar = '•';
             this.txtClave.Size = new System.Drawing.Size(310, 23);
             this.txtClave.TabIndex = 5;
+            this.txtClave.Visible = false;
             // 
             // btnAcceder
             // 
-            this.btnAcceder.Location = new System.Drawing.Point(250, 172);
+            this.btnAcceder.Location = new System.Drawing.Point(250, 122);
             this.btnAcceder.Name = "btnAcceder";
             this.btnAcceder.Size = new System.Drawing.Size(75, 27);
             this.btnAcceder.TabIndex = 7;
@@ -95,7 +97,7 @@ namespace GestorContrasenas.UI
             // 
             // btnRegistrarse
             // 
-            this.btnRegistrarse.Location = new System.Drawing.Point(15, 172);
+            this.btnRegistrarse.Location = new System.Drawing.Point(15, 122);
             this.btnRegistrarse.Name = "btnRegistrarse";
             this.btnRegistrarse.Size = new System.Drawing.Size(95, 27);
             this.btnRegistrarse.TabIndex = 6;
@@ -107,7 +109,7 @@ namespace GestorContrasenas.UI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(344, 215);
+            this.ClientSize = new System.Drawing.Size(344, 168);
             this.Controls.Add(this.btnRegistrarse);
             this.Controls.Add(this.btnAcceder);
             this.Controls.Add(this.txtClave);

@@ -18,7 +18,6 @@ namespace GestorContrasenas.UI
         {
             var email = txtEmail.Text.Trim();
             var pwd = txtPassword.Text;
-            var clave = txtClave.Text;
 
             if (string.IsNullOrWhiteSpace(email))
             {
@@ -30,7 +29,7 @@ namespace GestorContrasenas.UI
                 MessageBox.Show("La contraseña debe tener al menos 8 caracteres.", "Validación", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            // La clave maestra ya no es obligatoria si está almacenada cifrada en BD
+            // La clave maestra se recupera automáticamente desde BD si existe
 
             try
             {
@@ -42,38 +41,32 @@ namespace GestorContrasenas.UI
                     return;
                 }
                 UsuarioId = resultado.UsuarioId;
-                // Si la clave maestra fue recuperada de BD úsala; de lo contrario, requiere que el usuario la introduzca
-                if (!string.IsNullOrEmpty(resultado.ClaveMaestra))
+                // Si la clave maestra fue recuperada de BD úsala; si no, pedirla una sola vez en un formulario dedicado
+                if (string.IsNullOrEmpty(resultado.ClaveMaestra))
                 {
-                    ClaveMaestra = resultado.ClaveMaestra;
-                    DialogResult = DialogResult.OK;
-                    Close();
+                    using var cfg = new ConfigurarClaveForm();
+                    if (cfg.ShowDialog(this) != DialogResult.OK)
+                    {
+                        // Usuario canceló
+                        return;
+                    }
+                    ClaveMaestra = cfg.ClaveMaestra;
+                    try
+                    {
+                        auth.ActualizarClaveMaestra(UsuarioId, pwd, ClaveMaestra);
+                        MessageBox.Show("Clave maestra guardada para próximas sesiones.", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"No se pudo guardar la clave maestra: {ex.Message}", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
                 else
                 {
-                    if (!string.IsNullOrWhiteSpace(clave) && clave.Length >= 8)
-                    {
-                        ClaveMaestra = clave;
-                        // Guardar la clave maestra cifrada para futuras sesiones
-                        try
-                        {
-                            auth.ActualizarClaveMaestra(UsuarioId, pwd, ClaveMaestra);
-                            MessageBox.Show("Clave maestra guardada para próximas sesiones.", "Guardado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"No se pudo guardar la clave maestra: {ex.Message}", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        }
-                        DialogResult = DialogResult.OK;
-                        Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Tu cuenta no tiene clave maestra guardada. Introduce tu clave maestra para continuar.", "Clave maestra requerida", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        txtClave.Focus();
-                        return;
-                    }
+                    ClaveMaestra = resultado.ClaveMaestra;
                 }
+                DialogResult = DialogResult.OK;
+                Close();
             }
             catch (Exception ex)
             {
