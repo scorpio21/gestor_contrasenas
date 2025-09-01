@@ -111,17 +111,17 @@ namespace GestorContrasenas.UI
             // chkaz
             this.chkaz.AutoSize = true;
             this.chkaz.Checked = true;
-            this.chkaz.Location = new System.Drawing.Point(66, 80);
+            this.chkaz.Location = new System.Drawing.Point(82, 80);
             this.chkaz.Text = "a-z";
             // chk09
             this.chk09.AutoSize = true;
             this.chk09.Checked = true;
-            this.chk09.Location = new System.Drawing.Point(120, 80);
+            this.chk09.Location = new System.Drawing.Point(152, 80);
             this.chk09.Text = "0-9";
             // chkEspeciales
             this.chkEspeciales.AutoSize = true;
             this.chkEspeciales.Checked = true;
-            this.chkEspeciales.Location = new System.Drawing.Point(170, 80);
+            this.chkEspeciales.Location = new System.Drawing.Point(222, 80);
             this.chkEspeciales.Text = "!@#$%&*?";
             // chkEvitarAmbiguos
             this.chkEvitarAmbiguos.AutoSize = true;
