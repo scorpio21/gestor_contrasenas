@@ -85,6 +85,15 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - Espaciado horizontal uniforme en la fila de acciones: `Agregar`, `Eliminar`, `Copiar`, `Refrescar`, `Importar CSV`, `Exportar CSV`.
   - Botones `Importar seguro` y `Exportar seguro` movidos a una fila inferior para evitar solape.
 
+### Verificación automática de contraseñas comprometidas (UI/Servicios)
+
+- Nueva columna `Comprometida` en el listado principal que indica si la contraseña aparece en filtraciones públicas (verde "No", rojo "Sí (conteo)").
+- La comprobación se realiza automáticamente al seleccionar una fila o al revelar la contraseña.
+- Privacidad: se usa la API Pwned Passwords (Have I Been Pwned) con k-anonimato; nunca se envía la contraseña ni el hash completo, solo el prefijo del SHA‑1.
+- Implementación:
+  - Servicio: `Servicios/GestorContrasenasService.cs` (`EstaComprometidaAsync`).
+  - UI: `UI/MainForm.Designer.cs` (columna `colComprometida`) y `UI/MainForm.cs` (métodos `ComprobarComprometidaAsync`, integración en selección y al revelar).
+
 ## Seguridad
 
 - No subas credenciales reales al repositorio.

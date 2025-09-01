@@ -1,6 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Net.Http;
+using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 using GestorContrasenas.Datos;
 using GestorContrasenas.Dominio;
 using GestorContrasenas.Seguridad;
@@ -13,6 +17,8 @@ namespace GestorContrasenas.Servicios
         private readonly IEntradasRepositorio repo;
         private readonly CifradoService cifrado;
         private readonly int usuarioId;
+        private static readonly HttpClient http = new HttpClient();
+        private static readonly Dictionary<string, (bool comprometida, int? conteo)> cachePwned = new(StringComparer.OrdinalIgnoreCase);
 
         public GestorContrasenasService(int usuarioId)
         {
@@ -82,6 +88,60 @@ namespace GestorContrasenas.Servicios
         public string ObtenerSecretoDescifrado(EntradaContrasena e, string claveMaestra)
         {
             return cifrado.DescifrarTexto(e.SecretoCifrado, claveMaestra);
+        }
+
+        // Comprueba si una contraseña está comprometida usando HIBP (k-anonimato).
+        // Retorna (true, conteo) si aparece en filtraciones, de lo contrario (false, 0).
+        public async Task<(bool comprometida, int? conteo)> EstaComprometidaAsync(string contrasenaPlano)
+        {
+            if (string.IsNullOrEmpty(contrasenaPlano)) return (false, 0);
+
+            // SHA-1 en mayúsculas
+            string hash;
+            using (var sha1 = SHA1.Create())
+            {
+                var bytes = Encoding.UTF8.GetBytes(contrasenaPlano);
+                var h = sha1.ComputeHash(bytes);
+                hash = BitConverter.ToString(h).Replace("-", string.Empty).ToUpperInvariant();
+            }
+
+            if (cachePwned.TryGetValue(hash, out var cached))
+            {
+                return cached;
+            }
+
+            var prefix = hash.Substring(0, 5);
+            var suffix = hash.Substring(5);
+
+            using var req = new HttpRequestMessage(HttpMethod.Get, $"https://api.pwnedpasswords.com/range/{prefix}");
+            req.Headers.TryAddWithoutValidation("User-Agent", "gestor_contrasenas/1.0 (+https://github.com/scorpio21/gestor_contrasenas)");
+            using var resp = await http.SendAsync(req);
+            resp.EnsureSuccessStatusCode();
+            var body = await resp.Content.ReadAsStringAsync();
+
+            int? count = null;
+            bool found = false;
+            using (var sr = new System.IO.StringReader(body))
+            {
+                string? line;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    // Formato: SUFFIX:COUNT
+                    var idx = line.IndexOf(':');
+                    if (idx <= 0) continue;
+                    var suf = line.Substring(0, idx).Trim();
+                    if (suf.Equals(suffix, System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        found = true;
+                        if (int.TryParse(line.Substring(idx + 1).Trim(), out var c)) count = c;
+                        break;
+                    }
+                }
+            }
+
+            var result = (found, count ?? (found ? 1 : 0));
+            cachePwned[hash] = result;
+            return result;
         }
 
         // Calcula fortaleza simple: 0 (muy débil) a 4 (muy fuerte)

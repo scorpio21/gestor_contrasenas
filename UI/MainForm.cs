@@ -6,6 +6,7 @@ using GestorContrasenas.Servicios;
 using GestorContrasenas.Dominio;
 using Microsoft.VisualBasic.FileIO; // Parser CSV
 using System.IO;
+using System.Threading.Tasks;
 
 namespace GestorContrasenas.UI
 {
@@ -48,7 +49,9 @@ namespace GestorContrasenas.UI
                 item.SubItems.Add(entrada.Servicio);
                 item.SubItems.Add(entrada.Usuario);
                 item.SubItems.Add("••••••••"); // No mostrar en claro
+                item.SubItems.Add("-"); // Comprometida (pendiente)
                 item.SubItems.Add("👁");
+                item.UseItemStyleForSubItems = false; // permitir colores por subitem
                 item.Tag = entrada; // guardar la entrada completa para descifrar al copiar
                 lvEntradas.Items.Add(item);
             }
@@ -360,8 +363,8 @@ namespace GestorContrasenas.UI
 
             // índice de subitem clicado
             int subIndex = info.Item.SubItems.IndexOf(info.SubItem);
-            // Columnas: 0=ID, 1=Servicio, 2=Usuario, 3=Contraseña (oculta), 4=Ojito
-            if (subIndex == 4)
+            // Columnas: 0=ID, 1=Servicio, 2=Usuario, 3=Contraseña, 4=Comprometida, 5=Ojito
+            if (subIndex == 5)
             {
                 if (info.Item.Tag is EntradaContrasena entrada)
                 {
@@ -379,6 +382,9 @@ namespace GestorContrasenas.UI
                                 // iniciar temporizador de auto-ocultado
                                 revealTimer.Stop();
                                 revealTimer.Start();
+
+                                // Lanzar comprobación de comprometida al revelar
+                                _ = ComprobarComprometidaAsync(info.Item, secreto);
                             }
                         }
                         else
@@ -435,6 +441,23 @@ namespace GestorContrasenas.UI
         {
             OcultarContrasenasVisibles();
             revealTimer.Stop();
+            // Al seleccionar, si podemos descifrar, comprobar automáticamente
+            if (lvEntradas.SelectedItems.Count > 0)
+            {
+                var item = lvEntradas.SelectedItems[0];
+                if (item.Tag is EntradaContrasena entrada)
+                {
+                    try
+                    {
+                        var secreto = servicio.ObtenerSecretoDescifrado(entrada, claveMaestra);
+                        if (!string.IsNullOrEmpty(secreto))
+                        {
+                            _ = ComprobarComprometidaAsync(item, secreto);
+                        }
+                    }
+                    catch { /* ignorar */ }
+                }
+            }
         }
 
         private void lvEntradas_Leave(object? sender, EventArgs e)
@@ -632,6 +655,45 @@ namespace GestorContrasenas.UI
                 autoLockTimer.Start();
             }
             catch { /* ignorar */ }
+        }
+
+        // Comprueba con el servicio HIBP y actualiza la columna "Comprometida"
+        private async Task ComprobarComprometidaAsync(ListViewItem item, string secretoPlano)
+        {
+            try
+            {
+                // Mostrar estado en curso
+                if (item.SubItems.Count > 4)
+                {
+                    item.SubItems[4].Text = "...";
+                    item.SubItems[4].ForeColor = Color.DimGray;
+                }
+
+                var (comp, conteo) = await servicio.EstaComprometidaAsync(secretoPlano);
+                if (item.ListView?.IsDisposed == true) return;
+
+                if (item.SubItems.Count > 4)
+                {
+                    if (comp)
+                    {
+                        item.SubItems[4].Text = "Sí" + (conteo.HasValue && conteo.Value > 0 ? $" ({conteo.Value})" : "");
+                        item.SubItems[4].ForeColor = Color.DarkRed;
+                    }
+                    else
+                    {
+                        item.SubItems[4].Text = "No";
+                        item.SubItems[4].ForeColor = Color.DarkGreen;
+                    }
+                }
+            }
+            catch
+            {
+                if (item.SubItems.Count > 4)
+                {
+                    item.SubItems[4].Text = "-";
+                    item.SubItems[4].ForeColor = Color.DimGray;
+                }
+            }
         }
     }
 }

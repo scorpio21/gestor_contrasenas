@@ -8,6 +8,7 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.ColumnHeader colServicio;
         private System.Windows.Forms.ColumnHeader colUsuario;
         private System.Windows.Forms.ColumnHeader colSecreto;
+        private System.Windows.Forms.ColumnHeader colComprometida;
         private System.Windows.Forms.ColumnHeader colVer;
         private System.Windows.Forms.TextBox txtServicio;
         private System.Windows.Forms.TextBox txtUsuario;
@@ -60,6 +61,7 @@ namespace GestorContrasenas.UI
             this.colServicio = new System.Windows.Forms.ColumnHeader();
             this.colUsuario = new System.Windows.Forms.ColumnHeader();
             this.colSecreto = new System.Windows.Forms.ColumnHeader();
+            this.colComprometida = new System.Windows.Forms.ColumnHeader();
             this.colVer = new System.Windows.Forms.ColumnHeader();
             this.txtServicio = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
@@ -126,6 +128,7 @@ namespace GestorContrasenas.UI
             this.colServicio,
             this.colUsuario,
             this.colSecreto,
+            this.colComprometida,
             this.colVer});
             this.lvEntradas.FullRowSelect = true;
             this.lvEntradas.GridLines = true;
@@ -159,6 +162,11 @@ namespace GestorContrasenas.UI
             // 
             this.colSecreto.Text = "Contraseña";
             this.colSecreto.Width = 200;
+            // 
+            // colComprometida
+            // 
+            this.colComprometida.Text = "Comprometida";
+            this.colComprometida.Width = 110;
             // 
             // colVer
             // 
