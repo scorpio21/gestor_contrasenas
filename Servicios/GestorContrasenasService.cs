@@ -19,6 +19,8 @@ namespace GestorContrasenas.Servicios
         private readonly int usuarioId;
         private static readonly HttpClient http = new HttpClient();
         private static readonly Dictionary<string, (bool comprometida, int? conteo)> cachePwned = new(StringComparer.OrdinalIgnoreCase);
+        private static DateTime lastHibpCallUtc = DateTime.MinValue;
+        public static int HibpIntervaloMinimoMs { get; set; } = 200; // rate limit simple
 
         public GestorContrasenasService(int usuarioId)
         {
@@ -113,11 +115,20 @@ namespace GestorContrasenas.Servicios
             var prefix = hash.Substring(0, 5);
             var suffix = hash.Substring(5);
 
+            // Rate limit simple entre llamadas
+            var ahora = DateTime.UtcNow;
+            var elapsed = ahora - lastHibpCallUtc;
+            if (elapsed.TotalMilliseconds < HibpIntervaloMinimoMs)
+            {
+                await Task.Delay(HibpIntervaloMinimoMs - (int)elapsed.TotalMilliseconds);
+            }
+
             using var req = new HttpRequestMessage(HttpMethod.Get, $"https://api.pwnedpasswords.com/range/{prefix}");
             req.Headers.TryAddWithoutValidation("User-Agent", "gestor_contrasenas/1.0 (+https://github.com/scorpio21/gestor_contrasenas)");
             using var resp = await http.SendAsync(req);
             resp.EnsureSuccessStatusCode();
             var body = await resp.Content.ReadAsStringAsync();
+            lastHibpCallUtc = DateTime.UtcNow;
 
             int? count = null;
             bool found = false;

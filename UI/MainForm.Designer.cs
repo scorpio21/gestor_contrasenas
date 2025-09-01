@@ -43,6 +43,7 @@ namespace GestorContrasenas.UI
         private System.Windows.Forms.ToolStripMenuItem salirToolStripMenuItem;
         private System.Windows.Forms.Panel pnlFortaleza;
         private System.Windows.Forms.Panel pnlFortalezaValor;
+        private System.Windows.Forms.CheckBox chkHibpAuto;
 
         protected override void Dispose(bool disposing)
         {
@@ -91,6 +92,7 @@ namespace GestorContrasenas.UI
             this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlFortaleza = new System.Windows.Forms.Panel();
             this.pnlFortalezaValor = new System.Windows.Forms.Panel();
+            this.chkHibpAuto = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -397,6 +399,18 @@ namespace GestorContrasenas.UI
             this.pnlFortalezaValor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)));
             this.pnlFortalezaValor.TabIndex = 27;
             // 
+            // chkHibpAuto
+            // 
+            this.chkHibpAuto.AutoSize = true;
+            this.chkHibpAuto.Location = new System.Drawing.Point(12, 330);
+            this.chkHibpAuto.Name = "chkHibpAuto";
+            this.chkHibpAuto.Size = new System.Drawing.Size(256, 19);
+            this.chkHibpAuto.Text = "Comprobar comprometida automáticamente";
+            this.chkHibpAuto.Checked = true;
+            this.chkHibpAuto.TabIndex = 28;
+            this.chkHibpAuto.UseVisualStyleBackColor = true;
+            this.chkHibpAuto.CheckedChanged += new System.EventHandler(this.chkHibpAuto_CheckedChanged);
+            // 
             // lblReutilizacion
             // 
             this.lblReutilizacion = new System.Windows.Forms.Label();
@@ -460,6 +474,7 @@ namespace GestorContrasenas.UI
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(684, 550);
+            this.Controls.Add(this.chkHibpAuto);
             this.Controls.Add(this.pnlFortalezaValor);
             this.Controls.Add(this.pnlFortaleza);
             this.Controls.Add(this.btnExportarSeguro);

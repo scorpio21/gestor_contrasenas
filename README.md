@@ -94,6 +94,12 @@ dotnet test -c Release test/GestorContrasenas.Tests/GestorContrasenas.Tests.cspr
   - Servicio: `Servicios/GestorContrasenasService.cs` (`EstaComprometidaAsync`).
   - UI: `UI/MainForm.Designer.cs` (columna `colComprometida`) y `UI/MainForm.cs` (métodos `ComprobarComprometidaAsync`, integración en selección y al revelar).
 
+#### Ajustes y rendimiento
+
+- En la UI hay un checkbox: "Comprobar comprometida automáticamente" (`chkHibpAuto`).
+  - Si se desactiva, la columna muestra `-` y no se realizan llamadas.
+- Rate limit simple configurable en `GestorContrasenasService.HibpIntervaloMinimoMs` (por defecto 200 ms entre llamadas).
+
 ## Seguridad
 
 - No subas credenciales reales al repositorio.

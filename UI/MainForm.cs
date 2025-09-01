@@ -17,6 +17,7 @@ namespace GestorContrasenas.UI
         private readonly int usuarioId;
         private string? filtroActual = null;
         private string? ultimoClipboard = null;
+        private bool hibpAuto = true; // Ajuste: comprobar HIBP automáticamente
 
         public MainForm(int usuarioId, string claveMaestra)
         {
@@ -24,6 +25,7 @@ namespace GestorContrasenas.UI
             this.claveMaestra = claveMaestra;
             servicio = new GestorContrasenasService(usuarioId);
             InitializeComponent();
+            hibpAuto = true;
             CargarListado();
             // Iniciar temporizadores de seguridad
             autoLockTimer.Start();
@@ -383,8 +385,11 @@ namespace GestorContrasenas.UI
                                 revealTimer.Stop();
                                 revealTimer.Start();
 
-                                // Lanzar comprobación de comprometida al revelar
-                                _ = ComprobarComprometidaAsync(info.Item, secreto);
+                                // Lanzar comprobación de comprometida al revelar (si está activo)
+                                if (hibpAuto)
+                                {
+                                    _ = ComprobarComprometidaAsync(info.Item, secreto);
+                                }
                             }
                         }
                         else
@@ -441,7 +446,7 @@ namespace GestorContrasenas.UI
         {
             OcultarContrasenasVisibles();
             revealTimer.Stop();
-            // Al seleccionar, si podemos descifrar, comprobar automáticamente
+            // Al seleccionar, si podemos descifrar, comprobar automáticamente (si está activo)
             if (lvEntradas.SelectedItems.Count > 0)
             {
                 var item = lvEntradas.SelectedItems[0];
@@ -450,7 +455,7 @@ namespace GestorContrasenas.UI
                     try
                     {
                         var secreto = servicio.ObtenerSecretoDescifrado(entrada, claveMaestra);
-                        if (!string.IsNullOrEmpty(secreto))
+                        if (hibpAuto && !string.IsNullOrEmpty(secreto))
                         {
                             _ = ComprobarComprometidaAsync(item, secreto);
                         }
@@ -458,6 +463,47 @@ namespace GestorContrasenas.UI
                     catch { /* ignorar */ }
                 }
             }
+        }
+
+        private void chkHibpAuto_CheckedChanged(object? sender, EventArgs e)
+        {
+            try
+            {
+                hibpAuto = chkHibpAuto.Checked;
+                // Si se desactiva, limpiar estado visual a "-"
+                if (!hibpAuto)
+                {
+                    foreach (ListViewItem it in lvEntradas.Items)
+                    {
+                        if (it.SubItems.Count > 4)
+                        {
+                            it.SubItems[4].Text = "-";
+                            it.SubItems[4].ForeColor = Color.DimGray;
+                        }
+                    }
+                }
+                else
+                {
+                    // Si se activa y hay selección, intentar comprobar
+                    if (lvEntradas.SelectedItems.Count > 0)
+                    {
+                        var sel = lvEntradas.SelectedItems[0];
+                        if (sel.Tag is EntradaContrasena entrada)
+                        {
+                            try
+                            {
+                                var secreto = servicio.ObtenerSecretoDescifrado(entrada, claveMaestra);
+                                if (!string.IsNullOrEmpty(secreto))
+                                {
+                                    _ = ComprobarComprometidaAsync(sel, secreto);
+                                }
+                            }
+                            catch { /* ignorar */ }
+                        }
+                    }
+                }
+            }
+            catch { /* ignorar */ }
         }
 
         private void lvEntradas_Leave(object? sender, EventArgs e)

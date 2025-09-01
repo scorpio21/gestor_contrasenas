@@ -47,6 +47,7 @@ namespace GestorContrasenas.UI
             lblLongitud = new Label();
             nudLongitud = new NumericUpDown();
             chkAZ = new CheckBox();
+            chkaz = new CheckBox();
             chk09 = new CheckBox();
             chkEspeciales = new CheckBox();
             chkEvitarAmbiguos = new CheckBox();
@@ -105,6 +106,7 @@ namespace GestorContrasenas.UI
             tabContrasena.Controls.Add(lblLongitud);
             tabContrasena.Controls.Add(nudLongitud);
             tabContrasena.Controls.Add(chkAZ);
+            tabContrasena.Controls.Add(chkaz);
             tabContrasena.Controls.Add(chk09);
             tabContrasena.Controls.Add(chkEspeciales);
             tabContrasena.Controls.Add(chkEvitarAmbiguos);
@@ -148,6 +150,18 @@ namespace GestorContrasenas.UI
             chkAZ.Size = new Size(67, 29);
             chkAZ.TabIndex = 2;
             chkAZ.Text = "A-Z";
+            // 
+            // chkaz
+            // 
+            chkaz.AutoSize = true;
+            chkaz.Checked = true;
+            chkaz.CheckState = CheckState.Checked;
+            chkaz.Location = new Point(120, 91);
+            chkaz.Margin = new Padding(4, 5, 4, 5);
+            chkaz.Name = "chkaz";
+            chkaz.Size = new Size(65, 29);
+            chkaz.TabIndex = 2;
+            chkaz.Text = "a-z";
             // 
             // chk09
             // 
